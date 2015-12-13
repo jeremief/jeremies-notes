@@ -1,0 +1,58 @@
+{% extends "jeremiesnotesbase.html" %}
+
+{% block content %}
+
+
+ <div class = "stage">
+            <h1>Stage 3: Build a movie website</h1>
+
+            <div class = "topic">
+                <h2>Abstraction and using fuctions</h2>
+                <p></p>
+                <ol>
+                    <li>Abstraction: it is the ability to use an existing function without knowing exactly how it works</li>
+                    <li>In the Python standard library, several folders can be loaded: <span class = "code">"import webbrowser"</span>, <span class = "code">"import time"</span></li>
+                    <li>These folders then give us access to various functions such as <span class = "code">webbrowser.open("url")</span>or <span class = "code">time.sleep(number_of_seconds)</span></li>
+                </ol>
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Classes</h2>
+                <p>Classes are like factories that contain the blueprints of an object as well as the means of implementing this object. Their purpose is really to
+                    make life easier for programmers by taking full advantage of the Abstraction principle. It looks like the way to use classes in Python is done by using
+                    the following grammar: <span class="code">instance.function(parameter)</span>From we have seen, we can</p>
+                <ol>
+                    <li>Draw turtles</li>
+                    <li>send text messages through an API</li>
+                    <li>Edit profanities</li>
+                </ol>
+                <p>In this lesson we have spent a lot of time investigating the Python Standard Library  - that contains built-in functions as well as modules such as "time", "webbrowser", turtle", "os", "random" and "urllib", that can be imported in order to add functionality to our code. We also looked at third party libraries - like the Twilio library ("twilio.rest") - that can be added to add even more functionality.</p>
+                <p>Here is a list of useful commands learned so far:</p>
+                <ul>
+                    <li></li>
+                </ul>
+                <p>Also, here is is a list of new words:</p>
+                <ul>
+                    <li>Class: the keyword "class" enables us to make classes, that are like blueprints</li>
+                    <li>Instance: We can create multiple instances of a class</li>
+                    <li>Constructor: it is essentially the init method of the class. We ue it to initialise all the data associated witha particular instance.</li>
+                    <li>Self: the instance in question</li>
+                    <li>instance variable</li>
+                    <li>instance method</li>
+                    <li>class variable such as:</li>
+                    <li>__doc__</li>
+                    <li>__name__</li>
+                    <li>__module__</li>
+                    <li>inheritance</li>
+                </ul>
+                <p>Also, a few words about good practice:</p>
+                <ul>
+                    <li>keep your class definitions in a seperate file and import them in your working file</li>
+                    <li>constants should be in upper case format</li>
+                </ul>
+            </div> <!-- Closing tag topic -->
+
+        </div> <!-- Closing tag stage -->
+
+
+{% endblock %}

@@ -1,0 +1,250 @@
+{% extends "jeremiesnotesbase.html" %}
+
+{% block content %}
+
+
+ <div class = "stage">
+            <h1>Stage 4: adding comments to your website</h1>
+
+            <div class = "topic">
+                <h2>Introduction to networks</h2>
+                <p>The Internet is a network of computers. Here are a few important words to remember:</p>
+                <ul>
+                    <li>Network: a group of entities that can communicate even though they are not <b>ALL</b> directly connected. There is a need to be able to
+                        encode and interpret messages, a way to route the message and rules to decide who gets to use the resources</li>
+                    <li>Latency: time it gets for the <b>start</b> of a message to gets from its source to its destination - measured in seconds or milliseconds</li>
+                    <li>Bandwith: amount of information that can be transmitted per unit time - measured in bits or megabits per second</li>
+                    <li>Bit: smallest unit of information. Yes and No (0 and 1)</li>
+                    <li>Protocol: how two entities will talk to each other: the client (web browser) and the server (webserver). We use the HyperText Transfer Protocol.</li>
+                </ul>
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Making the Internet work for you</h2>
+                <p>A few reminders and new concepts for URLs:</p>
+                <ul>
+                    <li>HTML documnets are made of markups</li>
+                    <li>URL stands for Uniform Resource Locator: it is devided between the protocol (http), the host (www.udacity.com) and the path (/...)</li>
+                    <li>Query parameters (GET parameter): added to the url, they add extra functionality. The first one is separated from the url with a question mark and the others with a "&" sign: http://www.udacity.com/foo?p=1&q=great&z=2</li>
+                    <li>Fragments: after GET parameters, they are delimited with "#". It is used to refer to a particular part of the page or there are other uses in Javascript. It is not sent to the server, it only lives in the browser. </li>
+                    <li>Ports: by default the port is "80". If you want to use a different port, you have to specify it with a semi collon between the host and the path: http://localhost:8000/</li>
+                </ul>
+                <p>A few reminders/new concepts for HTTP:</p>
+                <ul>
+                    <li>GET request: when typing "http://www.udacity.com/foo", we are sending the following request: "GET /foo HTTP/1.1" there is no need for the host as we are already connected to it. See more about GET and POST requests below.</li>
+                    <li>Headers: "NAME: value". Paricularly important is the use of user-agent header which enables you to taylor how your site responds depending on who or what is visiting your site. "HOST: www.udacity.com", useful as a server can have several names (dependig on how many websites they host). "USER-AGENT: Chrome" Use it appropriately to handle traffic or do anything else you like.</li>
+                    <li>Response: Status line + status code + response phrase (English meaning of the status code. Example "HTTP/1.1 200 ok". Common staus codes are things like "200 Ok", "302 Found", "404 Not Found" or "500 Server Error"</li>
+                    <li>Responses contain headers too: "Date: Tues Mar 2012 04:33:33 GMT", "Server:Apache/2.2.3" - try to avoid for security reasons, "content-type:text/html", "Content-length:1539"</li>
+                </ul>
+                <p>Servers: their purpose is to respond to and HTTP request. Their response can be static (pre-written file, image...) or dynamic (file generated dynamically by a program called a web application). In the case of user entering data through a form, the servers will first present the form through a GET request then send the data through a POST request with a possible redirect. </p>
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Forms</h2>
+                <p>There is a tag called &lt;form&gt;. It has a closing tag as well and is used to create forms through which the isers can enter data. Inside a form we can have:</p>
+                <ul>
+                    <li>&lt;input&gt; that will create a field on a page. the input can have a name as well: <span class = "code">&lt;input name = "q"&gt;</span>. If the user enters data and presses enter, the name paramater gets passed to the URL.</li>
+                    <li>type="hidden" for the input tag. Example: <span class="code">&lt;input type="hidden" name="food" value="egg"&gt;</span></li>
+                    <li>Buttons are created with "type = submit". Clicking on submit is like pressing enter, it passes the parameter to the url.
+                    You can also add an action parameter to the form tag to change where the data is being sent <span class = "code">&lt;form action = "http://www.google.com/search"&gt;</span></li>
+                    <li>Buttons are also created with the &lt;button&gt; tag.</li>
+                    <li>Input types can have differnt values and behaviours. the default inpiut type is "text" if nothing is specified. "password" will create a field with dots but will NOT send the password securely. "checkbox": if checked, the value is "on", if not, the parameter doesn't appear at all. The same thing happens for "radio", unless all radio buttos have the same name parameter and a different value parameter</li>
+                    <li>The value parameter is used to distinguish radio buttons with the same name</li>
+                    <li>You can also use the &lt;label&gt; with some text to surround your input elements</li>
+                    <li>You can use the &lt;select&gt; tag with several &lt;option&gt; tags to create a dropdown menu. The value paramater is also available</li>
+
+
+                </ul>
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Break Modulus and Dictionaries</h2>
+                <p>The Modulus is the remainder of a division: 13 % 11 = 2,
+                </p>
+                <p>Dictionaries: they use curly brackets and associate keys with values: <span class = "code">d = {"hydrogen": 1, "helium": 2}</span>. In this case <span class = "code">print d["hydrogen"]</span> would return 1. Note that we still use the square brackets to access the elements. Like lists, dictionaries are mutable (strings aren't).
+                You can check if an element is in a dictionary by using <b>in</b>: <span class = "code">print 'lithium' in  elements</span>. In the case above this would evaluate to False.
+                You can also add elements by using the following form: <span class = "code">dictionary['newKey'] = value</span>. Note that when using this code, if the key already exist, it will just update the value.
+                What makes dictionaries interesting is that the value of a key can be anything, like strings and numbers, but also other dictionnaries.
+                </p>
+
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Google App Engine and GET/POST methods</h2>
+                <p>From the <a href = "https://console.developers.google.com">Google developper console</a> we can create and manage projects which have a unique ID. This ID can be overrriden as long as it is unique. We can then download some starter code. The starter code imports webapp2 which has been downloaded at the same time as the app engine.
+                In every starting folder there should be two files: a main.py file and a app.yaml file.
+                The yaml file points the app engine to the Google project and therefore tells it where to deploy the code. Can be overriden if necessary.
+                </p>
+
+                <p>There is also a main.pyc file after the code has been compiled a first time. The Python intepreter creates it to not have to recompile .py files unless necessary.</p>
+                <p>To use the app engine properly, it is important to understand the differences between GET requests (default requests) and POST requests (specified method).</p>
+                <p>GET methods:</p>
+                <ul>
+                    <li>Parameters are in the URL</li>
+                    <li>Used for fetching documents</li>
+                    <li>Maximum url length</li>
+                    <li>OK to cache</li>
+                    <li>Shouldn't change the server</li>
+                </ul>
+                <p>POST methods:</p>
+                <ul>
+                    <li>Parameters are in the body</li>
+                    <li>Used for updating data</li>
+                    <li>No max length (even though they can have a length but usually a few megabites)</li>
+                    <li>Not ok to cache</li>
+                    <li>OK to change the server ("destructive in nature"...)</li>
+                </ul>
+
+                It is nice to redirect after a form subimission because this way reloading the page doesn't resubmit the form and because it also enables us to have distinct pages for forms and success pages.
+
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Validation</h2>
+                <p></p>
+                <ul>
+                    <li>Escaping: even though you could write your own escaping function, yo should probably use the built in one by first importing the cgi module then using the following form: <span  class = "code">cgi.escape(string, quote = True)</span></li>
+                    <li>The importance of validation and escaping: validating user data entry is paramount usability and security reasons. We wouldn't a user to accidentally enter data that wouldn't be handled by our code. Similarly, we woulnd't want a user to maliciously inject some SQL or Javascript code that could impair our application.</li>
+
+                </ul>
+
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>String formating</h2>
+                <p>String formating will become very handy when implementing templates. There are three types of substitution:</p>
+                <ol>
+                    <li>Simple substitution, where %s can be replaced by a string or a variable just once: <span class = "code">"Hello %s" % "John"</span>
+                        or <span class = "code">"Hello %s" % name</span></li>
+                    <li>More complicated substitution where multiple %s can be replace by several unique strings or variables: <span class = "code">"Hello %s %s" % ("John", "Smith")</span> or <span class = "code">"Hello %s %s" % (name, surname)</span></li>
+                    <li>Complex substitution using a dictionary where some strings can be used more than once: <span class= "code">'%(last)s, %(first)s %(last)s' % {'first': "James", 'last': "Bond"}</span></li>
+                </ol>
+
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>HTML Templates</h2>
+                <p>Templates are extremely useful for various reasons. One of the main ones is that by offering inheritance and code handling, they limit the data that has to be created more than once, i.e.code duplication, which is an important source of errors and bugs. They also offer escaping, which is a significant security feature.</p>
+                {% raw %}
+                <p>Variable substitution in Jinja2: use double curly braces:
+                    {{variable}}. These double curly braces basically mean "print" and the "variable" can be any piece of Python code.
+
+                    For example: <span class = "code">&lt;h2&gt;Hello, {{name}}&lt;/h2&gt;</span></p>
+                {% endraw %}
+                <p>Statement syntax in Jinja2:<br>
+
+                    {% raw %}
+                    <span class = "code">{%statement%}</span><br>
+                    <span class = "code">output</span><br>
+                    <span class = "code">{%end statement%}</span><br><br>
+                    {% endraw %}
+
+                    example:<br>
+
+                    {% raw %}
+                    <span class = "code">{% if n == 1 %}</span><br>
+                    <span class = "code">n equals 1</span><br>
+                    <span class = "code">{% else %}</span><br>
+                    <span class = "code">n does NOT equal 1</span><br>
+                    <span class = "code">{% endif %}</span><br><br>
+                    {% endraw %}
+                </p>
+                <p>For loop synthax:<br>
+
+                    {% raw %}
+                    <span class = "code">{% for statement %}</span><br>
+                    <span class = "code">body</span><br>
+                    <span class = "code">{% endfor %}</span><br>
+                    <span class = "code">{% endraw %}</span><br><br>
+
+                    example:<br>
+
+
+                    {% raw %}
+                    <span class = "code">{% for x in range(1,n+1) %}</span><br>
+                    <span class = "code">   &lt;li&gt;{{x ** 2}}&lt;/li&gt;</span><br>
+                    <span class = "code">{% endfor %}</span><br><br>
+                    {% endraw %}
+
+                </p>
+                {% raw %}
+                <p>In Jinja2 (and other templated languages, there are two was of ecaping fields. One at template level when setting up the template: <span class = "code">jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)</span> and one at field level with the pipe symbol acting as a filter: <span class = "code">&lt;li&gt;{{ item | escape }}&lt;/li&gt;</span>. If you used the autoescape symbol, you can use the safe filter to opt the field out: <span class = "code">&lt;li&gt;{{ item | safe }}&lt;/li&gt;</span></p>
+                {% endraw %}
+                <p>A few tips:</p>
+                <ul>
+                    <li>Always automatically escape variables when possible</li>
+                    <li>Minimise the aount of code in your HTML templates</li>
+                    <li>Minimise the amount of HTML in your code - keep to zero, really...</li>
+                </ul>
+
+                <p>Template inheritance: Jinja makes it really easy to maintian html pages by using inheritance. In between the &lt;body&gt; tags, yop can use the following syntax to include a block of content:</p>
+
+                {% raw %}
+                <span class = "code">{% block content%}</span>
+                    <br>
+                <span class = "code">{% endblock %}</span>
+                {% endraw %}
+
+                You will have to use the two same tags on your actual template at the top of which you will have to inclue the "extends" line:
+                {% raw %}
+                <span class = "code">{% extends "file.html" %}</span>
+                {% endraw %}
+
+                <p>In a nutshell, templates have several advantages:</p>
+                <ul>
+                    <li>Separate different types of code</li>
+                    <li>Make more readable code</li>
+                    <li>Make more secure websites</li>
+                    <li>html that is easier to modify</li>
+                </ul>
+                You can find out more about jinja <a href = "http://jinja.pocoo.org">here</a>.
+
+            </div> <!-- Closing tag topic -->
+
+            <div class = "topic">
+                <h2>Databases</h2>
+                <p>Database are used to store and retrieve large amounts of organised data. The word database can refer to the software used, the machine that actually runs the software or the group of machines that performs the tasks. Databases use tables that contain the data. Querying them with Python is very hard and tedious(named tuples,lambda, .sort(), dictionaries).
+                There are different types of databases:</p>
+                <ul>
+                    <li>Relational databases: usually using some kind of SQL like Postgresql (Reddit, Hipmunk), MySQL (Facebook and everybody...), SQLite, Oracle</li>
+                    <li>Google App Engine Datastore: </li>
+                    <li>Dynamo (Amazon)</li>
+                    <li>NoSQL databases: Mongo, Couch</li>
+                </ul>
+
+                <p>SQL stands for Structured Query Language and was invented in the 1970's. It has the following format: <span type = "code">SELECT * FROM links WHERE id = 5 </span></p>
+
+                <p>Python does have a module called sqlite3 that can be imported.
+                    See query_exercise_1.py to query_exercise_5.py</p>
+
+                <p>Joins: we don't really use them</p>
+
+                <p>Indexes: theu increase the speed of databases reads (but not inserts...) as there is no need to scan all data. If we have a function to build the index table once, then we don't need to scan through all thedata every time with the other funtions:</p>
+
+                    <br><span class = "code">def build_link_index(): </span><br>
+                    <span class = "code"> &nbsp;my_index = {} </span><br>
+                    <span class = "code"> &nbsp;&nbsp;for l in links:</span><br>
+                    <span class = "code"> &nbsp;&nbsp;my_index[l.id] = l</span><br>
+                    <span class = "code"> &nbsp;return my_index</span>
+
+                <p>Hash tables are not sorted but tree data structures are. They are also slower as the size of the tree increases</p>
+
+                <p>ACID: Atomicity, Consistency, Isolation and Durability:</p>
+                <ul>
+                    <li>Atomicity: all parts of a transaction (simultaneous updates of several tables)succeed or fail together</li>
+                    <li>Consistency: the datbase will always be consistent</li>
+                    <li>Isolation: no transaction can interfere with another: if two transactions affect the same row at the same time (upvote and downvote , the row gets locked so that only one transaction can happen at the same time</li>
+                    <li>Durability: committed transactions don't get lost (during a computer crash for example)</li>
+                </ul>
+
+                <p>The Google App Engine Datastore:</p>
+                <ul>
+                    <li>Tables = entities. Columns are not fixed. They all have an ID (provided or chosen). They have parents and ancestors</li>
+                </ul>
+
+            </div> <!-- Closing tag topic -->
+
+        </div> <!-- Closing tag stage -->
+
+
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "jeremiesnotesbase.html" %}
+
+{% block content %}
+
+
+ <div class = "stage">
+            <h1>Stage 2: Build a MadLib game</h1>
+
+            <div class = "topic">
+                <h2>Introduction to serious programming</h2>
+                Here are some of the topics covered in this lesson:
+                <ul>
+                    <li>Computers: whilst most machines are built with a single purpose in mind, like a toaster, a computer can do almost anything as long as it receives the right program. It is a <b>general purpose machine</b></li>
+                    <li>Programs: put simply, these are really a list of <b>instructions</b> that a computer has to perform</li>
+                    <li>Programming languages: natural languages are ambiguous in nature. This is why we had to create new languages to tell computers <em>exactly</em> what to do</li>
+                    <li>Interpreter: it acts as a <b>translator</b> between the programming language and the computer</li>
+                    <li>Python: it is a interpreted programming language.</li>
+                    <li>Grammar: as natural languages can be confusing, we also had to come up with a new type of grammar to describe programming language. The one that is still being used today is the Backus-Naur form. (<a href = "https://en.wikipedia.org/wiki/John_Backus">John Backus</a> was of the fathers or Fortran).</li>
+                    <li>Python expressions: using the Backus-Naur form, we can progressively replace "non-terminal items" with other "non-terminal items" or "terminal items". This means that Python expressions have to obbey a certian syntax (a line cannot start with a whitespace, for example).</li>
+                </ul>
+            </div> <!-- Closing tag topic -->
+
+            <div class="topic">
+                <h2>Variables</h2>
+                <ul>
+                    <li>Python variables can store values such as strings or numbers</li>
+                    <li>To get a variable to store a value, you must assign the value to it using the assignment operator (=)</li>
+                    <li>The assignment operator is not to be confused with the equal sign that states that two sides of an expression are equal. The way to eproduce the equal sign in Python is by using <b>==</b></li>
+                    <li>variables are useful in the sense that they allow the programmer to different thongs depending on the value of the variable</li>
+                    <li>The <b>+</b>: the difference between 2+2 and "2"+"2"? is that it will add two numbers but concatenate two strings. Note that the + operator cannot concatenate a string and a number. The way to do this is to turn the number into a string using the <span class="code">str</span> function</li>
+                </ul>
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>Functions</h2>
+                <ul>
+                    <li>What is a function: a function takes an input, works on it and returns an input (sometimes)</li>
+                    <li>There is a difference between <b>making</b> and <b>using</b> a function. To use a function you first have to declare it, i.e. making it by telling the computer how it works. You can then use it</li>
+                    <li>Functions help programmers to avoid repetiton by adopting a modular design. If each function is designed properly, they can be stacked on top of each other so that the output of one function can be used as the input of another one. This saves programmers from having to redesign each funtion every time.</li>
+                    <li>A useful function to know: randint, which generates a random integer. We first have to use an import statement: "from random import randint". Then we can use the function as follows: <span class= "code">randint(low,high)</span></li>
+                    <li>What happens if a function doesn't have a <span class = "code">return</span> statement?: it does not return any value.</li>
+                </ul>
+            </div> <!-- Closing tag topic-->
+
+            <div class = "topic">
+                <h2>Strings</h2>
+                <p>Strings are a way to convey information. They can also be indexed, i.e. each character in the string has a number attached to it, which makes it convenient for manipulation. We can use the square brackets and the find function to perform certain operations:</P>
+                <ul>
+                    <li>string [n]: will retrieve the character at index n (counting from 0 to n from left to right or -1 to n-1 from right to left</li>
+                    <li>string [n:o]: will return the portion of the string in between the two index number</li>
+                    <li>string [:n]: will return the part of the string from the beginning of it to index n</li>
+                    <li>string [n:]: will return the part of the string from index n to the end of the string</li>
+                    <li>string.find(substring,index_parameter): will return the index location of the first occurence of the substring in the string. If the substring os not found, it will return -1. The index_parameter is optional and tells the computer to start its search at a particular location.</li>
+                    <li>string.replace(old,new,max): will replace a string with another. If max is used, the change will only apply to the first x instances in the string</li>
+                    <li>string.split(): will split a string in list based on single character separation. You can insert something in the parentheses to use as a basis for the split: (",") for example.</li>
+                    <li>string.join(): will do the opposite.</li>
+                </ul>
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>While Loops</h2>
+                <p>While loops keep executing as long as their test condition is true. This a very convenient way of avoiding repetition and hard-coding. It is formulated as follows:
+                <br><span class="code">while (condition): rest of your code here.</span>
+                <br>You can also insert the <span class="code">break</span> command to exit the loop before it ends. This is useful to break an infinite loop.
+                </p>
+
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>Debugging</h2>
+                <p>There will always be errors in the code. It is just a fact of life that has to be acknowledged and dealt with. Debugging should really be treated as part of the developement process and as such, be handled with a systematic approach:</p>
+                <ol>
+                    <li>Examine error messages when programs crash: the last line is usually the most understandable</li>
+                    <li>Work from example code: it is easy to find example code on the internet and use it as starting point. However...</li>
+                    <li>Make sure examples work!</li>
+                    <li>Check (print) intermediate results: you can use the print statement to make sure that the content of your variables evolves as expected as the program executes</li>
+                    <li>Keep and compare old versions: you can either comment out the old version or use GIT to capture the exact state of your code at a certain point in time</li>
+                </ol>
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>For lists and For loops</h2>
+                <p>Lists are a way of structuring and packaging data. They can contain strings, numbers and other lists. I suspect that they are also called arrays.
+                    <br>Lists can be accessed, concatenated, appened to or have elements removed.</p>
+                <ul>
+                    <li>To access the elements of a list, you can use their index (stating with 0):<span class="code">print list[0]</span></li>
+                    <li>If the element that you want to access is in a list within a list, you can use:<span class="code">print list[0][0]</span></li>
+                    <li>You can concatenate list by using code such as <span class="code">list1 = list1 + [5,6]</span>This creates a new list that includes 5 & 6.</li>
+                    <li>Also, you can append to a list using <span class="code">list1.append([5, 6])</span>. In this case, 5 & 6 have been added <u><b>as a list</b></u></li>
+                    <li>Finally, you can delete from a list by using the <span class="code">del</span> like in the reverse mad libs exercise: <span class="code">del game_answers[0]</span></li>
+                </ul>
+                <br>
+                <p>Lists can also be altered by mutation and aliasing.</p>
+                <ul>
+                    <li>Mutation: as we saw, lists can be altered. So can strings.</li>
+                    <li>Aliasing: when a string gets created its value assigned to a variable then another variable, two string objects get created. The difference with lists is that when a list is created and its value assigned to two variables, both variables still refer to the same string object. So amending the list for one, amends it for the other too. I strongly suspect that this has something to do with pointers...</li>
+                </ul>
+                <br><br>
+                <p>Then there the "For" loops that enable you to iterate throught the list</p>
+                <br><br>
+                <p>On a final note about Python, you should be aware that the language is subject to formating rules reffered to as "PEP 8" and that you can check
+                    your code here: <a href="http://pep8online.com">pep 8 checker</a></p>
+
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>How to solve problems</h2>
+                <p></p>
+                <ol>
+                    <li>Don't panic</li>
+                    <li>Understand the problem, i.e. inputs and outputs</li>
+                    <li>What are the <b>valid</b> inputs?</li>
+                        <ul>
+                            <li>Have you defined the validity criteria of the imput?</li>
+                            <li>Are you testing the validity of the input?</li>
+                            <li>How are you going to represent the inputs, i.e. how will they be packaged? Seperate values, objects...?</li>
+                        </ul>
+                    <li>What are the outputs?</li>
+                    <li>What are the relationships between the inputs and the outputs? You should work it out by working through some examples that you can use as test cases later on.</li>
+                    <li>Understand how a human <b>systematically</b> solves the problem</li>
+                    <li>Write the algorithm in pseudo code</li>
+                    <li>See if there is any way to simplify the way the product is being handled. The first attempt is rarely the best one as we often try to take shortcuts that will come back to bite us at some point in time... <b>Use a simpe mechanical solution</b></li>
+                    <li>Don't optimise too early...</li>
+                    <li>Develop incrementally by testing often</li>
+
+                </ol>
+            </div> <!--Closing tag topic-->
+
+        </div> <!--Closing tag stage-->
+
+
+{% endblock %}

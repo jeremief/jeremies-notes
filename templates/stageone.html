@@ -1,0 +1,119 @@
+{% extends "jeremiesnotesbase.html" %}
+
+{% block content %}
+
+
+ <div class = "stage">
+            <h1>Stage 1: HTML and CSS </h1> <!-- Version 1.0-->
+
+            <div class="topic">
+                <h2>How html, CSS and JavaScript fit together - a house analogy</h2>
+                    <ul>
+                        <li>Html describes the structure of the house (where is the kitchen) </li>
+                        <li>CSS describes the style of the house (what colours are th walls) </li>
+                        <li>JavaScript makes changes to these elements (like a remote control changes the channels on a TV) </li>
+                    </ul>
+            </div> <!--Closing tag topic-->
+
+
+            <div class="topic">
+                <h2>Structure of a html document</h2>
+                <p>
+                    A html page is effectively made of <b>nested boxes</b>, which is the reason why it can be a good idea to start with pen and paper when designing one.
+                    <br>
+                    This is referred to as the <b>D</b>ocument <b>O</b>bject <b>M</b>odel (DOM).
+                    The <a href="http://www.w3.org/TR/DOM-Level-2-Core/introduction.html">DOM</a> is an API that describes the structure of the page in a parent-children form to the browser. This creates a tree-like structure where a parent element can have several children elemtents, each of a different type. For example a div element can have a heading and a paragraph as its children. The browser then combines this information with the CSS code to render the page.
+                </p>
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>CSS</h2>
+
+                <div class="point">
+                    <h3>Overview</h3>
+                    <p>
+                        CSS is used to format the way the HTML page is displayed. It stands for <b>C</b>ascading <b>S</b>tyle <b>S</b>heets.
+                        <br>The main idea in programming is: "do not repeat yourself."
+                        <br>It can be used by using the "style" tag, linking to an additional file using the "link" tag or writing it <em>inline</em>.
+                        <br>What is being cascaded is the style. It can be passed to various types of classes.
+                        <br>It follows the structure: class{Attribute: value;}
+                        <br>The attribute reference guide can be found <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">here</a>.
+                    </p>
+                </div> <!--Closing tag point-->
+
+                <div class = "point">
+                    <h3>The box model</h3>
+                    <p>
+                        Everything on a webpage is made of boxes. However, these boxes comprise of four elements:
+                    </P>
+                        <ol>
+                            <li>Content: the actual content of the box </li>
+                            <li>Padding: the padding between the content and the border</li>
+                            <li>Border: the actual border of the box </li>
+                            <li>Margin: not part of the actual box, it forms a kind of "exclusion zone" around it and its size is not used to calculate when calculating the boxe's.</li>
+                        </ol>
+                    <p>
+                        These boxes can have several types of attibutes such as their maximum width, which can be set as an absolute number of pixels or as a percentage of the screen.
+                    </P>
+                </div> <!--Closing tag point-->
+
+                <div class = "point">
+                    <h3>The importance of not repeating yourself </h3>
+                    <p>
+                        Not repeating yourself is one of the main ideas in programming. It involves more planning upfront but there are several advantages to doing so:
+                    </P>
+                    <ol>
+                            <li>More efficient work: by not repeating yourself, you write less code which takes you less time to write and to read.</li>
+                            <li>More efficient code: this also means that the browser has less code to complile, leading to a faster rendering of the page.</li>
+                            <li>More efficient maintenance: by avoiding repetition, you also create a single source of truth for your code. In the case of CSS, if you have made use of the "class" attribute in your html blocks, you will only have to change a few lines of code in the CSS file to make changes to the your pages' style. This would be a lot more onerous if you had repeated yourself by using inline attributes as would have to alter your code in numerous places</li>
+                            <li>More accurate code: by not repeating yourself, you also reduce your chances of copying and pasting errors that you will have to correct in multiple places.</li>
+                    </ol>
+                </div> <!--Closing tag point-->
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>Code validation</h2>
+                <p>
+                    To make sure that your code appears correctly on all browsers, it is a good idea to check it for errors using online code-checkers:
+                    <br>
+                    <br> <a href="http://validator.w3.org/#validate_by_input">Html code checker</a>
+                    <br> <a href="http://jigsaw.w3.org/css-validator/#validate_by_input">CSS code checker</a>
+                </p>
+            </div> <!--Closing tag topic-->
+
+            <div class="topic">
+                <h2>1 - Inline elements</h2>
+                They affect a single line of text:
+                <ul>
+                    <li>&lt;a&gt; for creating a link to another page</li>
+                    <li>&lt;img&gt; for adding an image to the page</li>
+                    <li>&lt;br&gt; for creating additional line,</li>
+                    <li>&lt;b&gt; for making the content bold, </li>
+                    <li>&lt;em&gt; for creatig emphasis (italics) </li>
+                    <li>&lt;span&gt; fox creating a "box" on a single line </li>
+                    <li>&lt;strong&gt; for creating a kind of bold text</li>
+                </ul>
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>2 - Block elements</h2>
+
+                They create  a block that can have different properties attached to them
+                <ol>
+                    <li>&lt;p&gt; stands for paragraph </li>
+                    <li>&lt;div&gt; stands for document division</li>
+                    <li>&lt;form&gt; creates a form for user input</li>
+                </ol>
+            </div> <!--Closing tag topic-->
+
+            <div class = "topic">
+                <h2>Other tags</h2>
+                <ul>
+                    <li>&lt;link&gt;: enables you to link your html file to another file such as a css one
+                    <li>&lt;style&gt;: enables you to integrate style straight into the html</li>
+                </ul>
+            </div> <!--Closing tag topic-->
+        </div> <!--Closing tag stage -->
+
+
+{% endblock %}

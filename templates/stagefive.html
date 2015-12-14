@@ -2,11 +2,39 @@
 
 {% block content %}
 
+<script type="text/javascript">
+// var firstName = "Jeremie";
+// console.log (firstName);
+var awesomeThought = "I am Jeremie and I am awesome";
+console.log(awesomeThought);
+funThought = awesomeThought.replace("awesome","FUN")
+console.log(funThought);
+$("#main").append(funThought);
+</script>
 
-<div class = "stage">
+
+		<div class = "stage">
             <h1>Stage 5: Choose your next steps</h1>
 
- <img src = "/static/images/Under-construction.jpg" alt = "Under construction image">
+            <div class = "topic">
+                <h2>Meet JavaScript</h2>
+                    <p>JavaScript is THE programming language of the web. There are two was of adding it: firstly into the html through a script tag <span class = "code">&lt;script&gt;&lt;/script&gt;</span> or in a separate .js file. Like <a href="http://javascript.info/tutorial/adding-script-html#external-scripts">here</a>.</p>
+
+                    Here are some new concepts:
+                    <ul>
+                    	<li>Declaring variables: the syntax is the same for strings and numbers. var declares a new variable for all data types: <span class = "code"> var variableName = someValue</span>.</li>
+                    	<li>Replacing strings: follow the format <span class = "code">string.replace("old","new")</span></li>
+                    </ul>
+
+                    You can use the console of the webbrowser to debug your Javascript: <br>
+
+                    <span class = "code">&lt;script type="text/javascript"&gt;</span><br>
+					<span class = "code">var firstName = "Jeremie";</span><br>
+					<span class = "code">console.log (firstName);</span><br>
+					<span class = "code">&lt;/script&gt;</span><br>
+
+            </div> <!--Closing tag topic-->
+        </div> <!--Closing tag stage-->
 
 
 {% endblock %}

@@ -5,6 +5,7 @@
         <title>Jeremie's HTML and CSS notes</title>
         <link rel="stylesheet" href="/static/stylesheets/notesstyle.css">
         <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </head>
 
     <body>
@@ -22,6 +23,15 @@
 
         {% block content %}
         {% endblock %}
+
+     <script>$("button").on("click", function() {$("body").toggleClass("nightmode-body");});</script>
+     <script>$("button").on("click", function() {$(".stage").toggleClass("nightmode-stage");});</script>
+     <script>$("button").on("click", function() {$(".topic").toggleClass("nightmode-topic");});</script>
+     <script>$("button").on("click", function() {$(".menu").toggleClass("nightmode-menu");});</script>
+     <script>$("button").on("click", function() {$(".point").toggleClass("nightmode-point");});</script>
+     <script>$("button").on("click", function() {$(".code").toggleClass("nightmode-code");});</script>
+     <script>$("button").on("click", function() {$(".menu-link").toggleClass("nightmode-menu-link");});</script>
+     <script>$("button").on("click", function() {$("a").toggleClass("nightmode-normal-link");});</script>
 
     </body>
 </html>

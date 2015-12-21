@@ -1,6 +1,15 @@
-* {
+body {
 	text-align: justify;
+
+	transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
+
 
 .stage {
 	color: white; /*V1.1: New colour*/
@@ -10,6 +19,14 @@
 	margin: 10px;
 	padding: 10px;
 	overflow: hidden;
+
+	transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 .topic{
@@ -21,10 +38,26 @@
 	padding-right: 5px;
 	padding-bottom: 5px;
 	color: black; /*V1.1: New colour*/
+
+	transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 .point{
 	color: black; /*v1.1: New colour*/
+
+	transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 .code{
@@ -34,6 +67,14 @@
     padding: 2px 4px;
    	font-weight: bold;
     height: 20px;
+
+    transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 .menu{
@@ -45,16 +86,75 @@
 	border-radius: 20px;
 	width: 150px;
 	float: left;
+
+	transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 .menu-link{
     display: block;
     width: 150px;
+
+    transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 .commentscontainer{
 	overflow: hidden;
 }
 
+.nightmode-body {
+	background-color: black;
+}
+
+.nightmode-stage {
+	background-color: black;
+	border-style: solid;
+	border-color: rgb(42, 192, 255);
+	border-width: 1px;
+	color: rgb(42, 192, 255);
+}
+
+.nightmode-topic {
+	background-color: black;
+	border-style: solid;
+	border-color: rgb(42, 192, 255);
+	border-width: 1px;
+	color: rgb(42, 192, 255);
+}
+
+.nightmode-point {
+	color: rgb(42, 192, 255);
+}
+
+.nightmode-code {
+	background-color: gray;
+}
+
+.nightmode-menu{
+	background-color: black;
+	border-style: solid;
+	border-color: rgb(42, 192, 255);
+	border-width: 1px;
+	color: rgb(42, 192, 255);
+}
+
+.nightmode-menu-link{
+	color: rgb(42, 192, 255);
+}
+
+.nightmode-normal-link {
+	color: rgb(42, 192, 255);
+}
 
 

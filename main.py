@@ -91,6 +91,12 @@ class FivePage(Handler):
     def get(self):
         self.render("stagefive.html")
 
+    # These code snippets use an open-source library.
+    # response = unirest.get("https://detectgender.p.mashape.com/?name=Marilyn",
+    # headers={
+    # "X-Mashape-Key": "ZmWSQsa60mmshSp2UcSWFKcpABtpp1kCrGsjsnkLzWoiPU2x2E",
+    # "Accept": "application/json"})
+
 
 class Comment(ndb.Model):
     """A main model for representing an individual comment."""

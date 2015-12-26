@@ -117,12 +117,19 @@ body {
 	background-color: black;
 }
 
+.nightmode-h2 {
+	padding: 0px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
 .nightmode-stage {
 	background-color: black;
 	border-style: solid;
 	border-color: rgb(42, 192, 255);
 	border-width: 1px;
 	color: rgb(42, 192, 255);
+
 }
 
 .nightmode-topic {
@@ -131,10 +138,17 @@ body {
 	border-color: rgb(42, 192, 255);
 	border-width: 1px;
 	color: rgb(42, 192, 255);
+
+    margin-top: 23px;
+    margin-right: 0px;
+    line-height: 16px;
+
+
 }
 
 .nightmode-point {
 	color: rgb(42, 192, 255);
+    line-height: 10px;
 }
 
 .nightmode-code {

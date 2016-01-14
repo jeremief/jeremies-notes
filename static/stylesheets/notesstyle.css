@@ -60,6 +60,23 @@ body {
     -moz-transition: background-color 1s;
 }
 
+.summary{
+    background-color: white;
+    display: block;
+    border-radius: 5px;
+    padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+
+    transition: color 1s;
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
+}
+
 .code{
 	display: inline-block;
 	font-family: Courier;
@@ -143,12 +160,20 @@ body {
     margin-right: 0px;
     line-height: 16px;
 
-
 }
 
 .nightmode-point {
 	color: rgb(42, 192, 255);
     line-height: 10px;
+}
+
+.nightmode-summary{
+	background-color: gray;
+    display: block;
+    border-radius: 5px;
+    padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
 }
 
 .nightmode-code {

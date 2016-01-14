@@ -1,11 +1,14 @@
 import cgi
 import urllib
+import urllib2
+import webbrowser
 
 from google.appengine.ext import ndb
 
 import os
 import jinja2
 import webapp2
+import pprint
 
 # Set up jinja environment
 
@@ -88,14 +91,74 @@ class FourPage(Handler):
 
 
 class FivePage(Handler):
-    def get(self):
-        self.render("stagefive.html")
+    def get(self,*summary):
 
-    # These code snippets use an open-source library.
-    # response = unirest.get("https://detectgender.p.mashape.com/?name=Marilyn",
-    # headers={
-    # "X-Mashape-Key": "ZmWSQsa60mmshSp2UcSWFKcpABtpp1kCrGsjsnkLzWoiPU2x2E",
-    # "Accept": "application/json"})
+        summary = self.request.get('summary','')
+        # self.render("stagefive.html")
+        # self.response.out.write(summary)
+
+        # summary = "This is the summary"
+
+        template_values = {
+            'summary': summary,
+        }
+
+        template = jinja_env.get_template('stagefive.html')
+        self.response.write(template.render(template_values))
+
+
+class ApiExemple(Handler):
+    def get(self):
+
+        num_characters_before_id = 9
+        num_characters_before_redirect = 0
+        redirect_flag = False
+
+        user_entry = self.request.get("article")
+        # self.response.out.write(user_entry)
+
+        while redirect_flag == False:
+            #Extract text from URL
+            user_entry = user_entry.title()
+            modified_user_entry = user_entry.replace(" ", "_")
+            print modified_user_entry
+            url_for_api = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + modified_user_entry +'&prop=revisions&rvprop=content&format=json'
+            response = urllib2.urlopen(url_for_api)
+            res = response.read()
+            response.close()
+
+            # Find page ID
+            start_pageid = res.find("pages") + num_characters_before_id
+            end_pageid = res.find('"',start_pageid)
+            page_id = res[start_pageid:end_pageid]
+            page_id = int(page_id)
+
+            if page_id == -1:
+                print "No such page"
+                redirect_flag = True
+            else:
+                # if there is a REDIRECT, use it as a new user entry
+                redirect_flag = True
+                start_redirect = res.find("REDIRECT")
+                if start_redirect != -1:
+                    first_curly_before_redirect = res.find('[',start_redirect)
+                    num_characters_before_redirect = first_curly_before_redirect - start_redirect + 2
+                    end_redirect = res.find(']]',start_redirect)
+                    redirect = res[start_redirect + num_characters_before_redirect:end_redirect]
+                    user_entry = redirect
+                    redirect_flag = False
+
+
+        start_summary = res.find("'''")
+        end_summary = res.find("==")
+        print start_summary
+        print end_summary
+        raw_summary = res[start_summary:end_summary]
+        print raw_summary
+
+        self.redirect('/five?summary=' + raw_summary)
+
+
 
 
 class Comment(ndb.Model):
@@ -143,5 +206,6 @@ app = webapp2.WSGIApplication([('/', HomePage),
                                ('/three',ThreePage),
                                ('/four',FourPage),
                                ('/five',FivePage),
+                               ('/api',ApiExemple),
                                ('/comments',CommentsPage)],
                               debug=True)

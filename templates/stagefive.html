@@ -2,23 +2,14 @@
 
 {% block content %}
 
-<!-- <script type="text/javascript"> -->
-<!-- // // var firstName = "Jeremie";
-// // console.log (firstName);
-// var awesomeThought = "I am Jeremie and I am awesome";
-// console.log(awesomeThought);
-// funThought = awesomeThought.replace("awesome","FUN")
-// console.log(funThought);
-// $("#main").append(funThought); -->
-<!--// </script> -->
 
 
 		<div class = "stage">
-            <h1>Stage 5: Choose your next steps</h1>
+            <h1>Stage 5: Personal notes on topics covered and exploration of Back End Options</h1>
 
             <div class = "topic">
                 <h2>Meet JavaScript</h2>
-                    <p>JavaScript is THE programming language of the web. There are two was of adding it: firstly into the html through a script tag <span class = "code">&lt;script&gt;&lt;/script&gt;</span> or in a separate .js file. Like <a href="http://javascript.info/tutorial/adding-script-html#external-scripts">here</a>.</p>
+                    <p>JavaScript is THE programming language of the web. There are two ways of adding it: firstly into the html through a script tag <span class = "code">&lt;script&gt;&lt;/script&gt;</span> or in a separate .js file. Like <a href="http://javascript.info/tutorial/adding-script-html#external-scripts">here</a>.</p>
 
                     Here are some new concepts:
                     <ul>
@@ -39,97 +30,162 @@
             </div> <!--Closing tag topic-->
 
             <div class = "topic">
-            <h2>The power of APIs</h2>
-            <p>XML was invented in the 1990's to facilitate computer to computer communication. It is related to html as they have a common ancestor, <a href="https://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language">SGML</a>, invented in the 1980's. Html can actually be expressed as XML, using the type xhtml oin the DOCTYPE.</p>
+                <h2>The power of APIs</h2>
+                <p>XML was invented in the 1990's to facilitate computer to computer communication. It is related to html as they have a common ancestor, <a href="https://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language">SGML</a>, invented in the 1980's. Html can actually be expressed as XML, using the type xhtml oin the DOCTYPE.</p>
 
-            <p>Some characteristics of xml are:</p>
-            <ul>
-                <li>there is no void tag, every opening tag needs a closing one</li>
-                <li>You can have an empty tag in this form: &lt;tag/&gt;</li>
-            </ul>
+                <p>Some characteristics of xml are:</p>
+                <ul>
+                    <li>there is no void tag, every opening tag needs a closing one</li>
+                    <li>You can have an empty tag in this form: &lt;tag/&gt;</li>
+                </ul>
 
-            <p>Python has a built in parser in a library called minidom. It can imported like this: <span class="code">from xml.dom import minidom</span>. This is a lightweight and fast version of the more comprehensive dom (document object model) that can be used to parse gigabits of data.</p>
+                <p>Python has a built in parser in a library called minidom. It can imported like this: <span class="code">from xml.dom import minidom</span>. This is a lightweight and fast version of the more comprehensive dom (document object model) that can be used to parse gigabits of data.</p>
 
-            To parse xml (create an object from code) and store the result in a variable, you can use the following:
-            <br>
-            <span class = "code">p =  minidom.parseString("&lt;mytag&gt;contents!&lt;children&gt;&lt;item&gt;1&lt;/item&gt;&lt;item&gt;2&lt;/item&gt;&lt;/children&gt;&lt;/mytag&gt;")</span>
+                To parse xml (create an object from code) and store the result in a variable, you can use the following:
+                <br>
+                <span class = "code">p =  minidom.parseString("&lt;mytag&gt;contents!&lt;children&gt;&lt;item&gt;1&lt;/item&gt;&lt;item&gt;2&lt;/item&gt;&lt;/children&gt;&lt;/mytag&gt;")</span>
 
-            To visualise the structure of the resulting object, including available methods, you can use <span class="code">dir(p)</span>, or if you want it in a vertical fashion, <span class="code">import pprint</span> ("pretty print") and write <span class = "code">pprint.pprint(dir(p))</span>.
+                To visualise the structure of the resulting object, including available methods, you can use <span class="code">dir(p)</span>, or if you want it in a vertical fashion, <span class="code">import pprint</span> ("pretty print") and write <span class = "code">pprint.pprint(dir(p))</span>.
 
-            To visualise the content in a XML format: <br>
-            <span class = "code">print p.toprettyxml()</span>
+                To visualise the content in a XML format: <br>
+                <span class = "code">print p.toprettyxml()</span>
 
-            To get the "1" above we would have to use the following:<br>
-            <span class = "code">p.getElementByTagName("item")[0].childNodes[0].nodeValue</span>
+                To get the "1" above we would have to use the following:<br>
+                <span class = "code">p.getElementByTagName("item")[0].childNodes[0].nodeValue</span>
 
-            <br>
+                <br>
 
-            Another tool for computers to communicate is JSON, which stands for JavaScript Object Notation. It consists of nested dictionaries, lists and lists of dictionaries:
+                Another tool for computers to communicate is JSON, which stands for JavaScript Object Notation. It consists of nested dictionaries, lists and lists of dictionaries:
 
-            <span class = "code">{ "itenaries":[ {"from": "SEO",</span><br>
-            <span class = "code">                "to" : "IAD"},</span><br>
-            <span class = "code">                 {"from" : "IAD",</span><br>
-            <span class = "code">                 "to" : "SEO"} ]</span><br>
-            <span class = "code">}</span><br>
+                <span class = "code">{ "itenaries":[ {"from": "SEO",</span><br>
+                <span class = "code">                "to" : "IAD"},</span><br>
+                <span class = "code">                 {"from" : "IAD",</span><br>
+                <span class = "code">                 "to" : "SEO"} ]</span><br>
+                <span class = "code">}</span><br>
 
-            To use json in python you must first import it.
-            To visualise a JSON object stored in a j variable, enter: <br>
-            <span class = "code">json.loads(j)</span>. Include 'print' if not run from bash.
-            To have a quick look at the keys progressively available at each level:
-            <span class = "code">j.keys()</span>
-            <span class = "code">j['data'].keys()</span>
-            <span class = "code">j['data']['children'].keys()</span>
-            Be aware that hackers could use JSON to sneak code in your system...
+                To use json in python you must first import it.
+                To visualise a JSON object stored in a j variable, enter: <br>
+                <span class = "code">json.loads(j)</span>. Include 'print' if not run from bash.
+                To have a quick look at the keys progressively available at each level:
+                <span class = "code">j.keys()</span>
+                <span class = "code">j['data'].keys()</span>
+                <span class = "code">j['data']['children'].keys()</span>
+                Be aware that hackers could use JSON to sneak code in your system...
 
-            <br>
-            Some websites make their contents available in other formats that html: <br>
-            www.reddit.com/.json or www.reddit.com/.xml
+                <br>
+                Some websites make their contents available in other formats that html: <br>
+                www.reddit.com/.json or www.reddit.com/.xml
 
-            There are other protocols used by servers to communicate:
-            <ul>
-                <li>SOAP (Microsoft): very complicated</li>
-                <li>Protocol buffers (Google): similar to JSON</li>
-                <li>Thrift (Facebook)</li>
-                <li>Plain text, custom formats</li>
-            </ul>
+                There are other protocols used by servers to communicate:
+                <ul>
+                    <li>SOAP (Microsoft): very complicated</li>
+                    <li>Protocol buffers (Google): similar to JSON</li>
+                    <li>Thrift (Facebook)</li>
+                    <li>Plain text, custom formats</li>
+                </ul>
 
-            <p>Overall, make sure to rate-limit yourself to avoid hitting servers too hard and that you write good user-agents so that people building the APIs that use can contact you if something goes wrong.</p>
-
-            <p>The small form below implements an API that returns the possible gender of a name entered by a user. Even thought there are 5,000 names available, some common ones are missing('David'???).</p>
-
-            <form>
-                <input type="Name" placeholder="Enter name...">
-                <input type="submit"> <br>
-                Gender: %s
-            </form>
-
-
+                <p>Overall, make sure to rate-limit yourself to avoid hitting servers too hard and that you write good user-agents so that people building the APIs that use can contact you if something goes wrong.</p>
 
 
 
             </div> <!--Closing tag topic-->
 
+
             <div class = "topic">
-            <h2>Recursion and parallel computing</h2>
+                <h2>Recursion and parallel computing</h2>
 
             </div> <!--Closing tag topic-->
 
             <div class = "topic">
-            <h2>Solving big problems</h2>
+                <h2>Solving big problems</h2>
+                <p>This section is presented by <a href = "https://en.wikipedia.org/wiki/Peter_Norvig">Peter Norvig</a>, a veteran computer scientist at Google. He explains how to break down a complex problem (creating a Scrabble game) into smaller, more manageable problems.</p>
+                <br>
+                <p>There is a lot useful lessons to take in here and I plan to come back to this course later on. One of the useful things that I learned about it to have a list of concepts to implement.</p>
 
             </div> <!--Closing tag topic-->
 
             <div class = "topic">
-            <h2>Making pages look good</h2>
+                <h2>Making pages look good</h2>
                 <p>Combining CSS and JavaScript can be very useful to design web pages that will render well on any browser and on screens of any size.</p>
-                <p>I had a lot of pleasure experimenting with the Dash tool created by General Assembly and it really made me realise how flexible web-design can be. It inspired me to use JQuery to create a "Night mode" for this page: </p>
+                <p>I had a lot of pleasure experimenting with the Dash tool created by General Assembly and it really made me realise how flexible web-design can be. here is the list of links to my practice exercises:</P>
+                <ul>
+                    <li><a href= "https://dash.generalassemb.ly/Jeremie/build-your-own-personal-website">personal website</a></li>
+                    <li><a href = "https://dash.generalassemb.ly/projects/build-your-own-blog-theme">personal blog theme</a></li>
+                    <li><a href="https://dash.generalassemb.ly/projects/build-your-own-business-website">personal website</a></li>
+                </ul>
 
-            <button>Night mode</button>
+
+                <P>It inspired me to use JQuery to create a "Night mode" for this page: </p>
+
+                <button>Night mode</button>
 
             </div> <!--Closing tag topic-->
 
             <div class = "topic">
-            <h2>Go explore</h2>
+                <h2>Go explore - What I have learned</h2>
+                <p>Going through all this material really made me relise that what I really would like is to be able to build complex web applications with databases and APIs that can serve all sorts of clients. For this reason, I have chosen to focus on option three: Full Stack and Back End option.</p>
+
+                    <div class = "point">
+                        <h3>Web Development</h3>
+
+                    </div> <!-- Closing tag point -->
+
+
+                    <div class = "point">
+                        <h3>APIs</h3>
+                        <p>Please the notes above for what I have learned from an API point of view.</p>
+                        <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
+
+                        <!-- <form action = "/api"> -->
+                        <form action = "/api">
+                            <input name="article" placeholder="Enter topic...">
+                            <input type="submit"> <br>
+                            Summary: {{summary}}
+                        </form>
+
+                    </div> <!-- Closing tag point -->
+
+
+                    <div class = "point">
+                        <h3>Relational databases</h3>
+                        <p>Datbases are a way of storing data in a permanent fashion. In the case of relational databases, the data is stored in one or several tables (columns + rows) that link to each other. We can then use queries to retrieve or modify the data.</p>
+                        <p>In order to join tables properly, we need to make sure that the various elements of these tables are properly identified, which best done by using keys. Keys can be numerical (ID number) or alpha (country ame), as long as they are and remain unique.</p>
+                        <p>One of the main languages used to query databases is the SQL language. Here is a list of some of the data types that it uses:</p>
+                        <ul>
+                            <li>text</li>
+                            <li>integer</li>
+                            <li>date (keep putting it in between single quotes</li>
+                            <li><a href = "http://www.postgresql.org/docs/9.4/static/datatype.html">Complete list for PostgreSQL</a></li>
+                        </ul>
+                        <p>SQL formulates queries this way: <br> <span class = "code">SELECT column1, column2 FROM table1 WHERE condition1 AND condition2  GROUP BY column2 ORDER BY column1 DESC;</span> Note that GROUP BY is only for aggregations:</p>
+                        <span class = "code">QUERY = "SELECT species, count(*) as number FROM animals GROUP BY species ORDER BY number DESC"</span>
+                        <br>
+                        <p>We will also need to insert rows in columns to update our tables once in a while. This can be done by using the INSERT INTO statement:</p>
+                        <span class = "code">INSERT INTO table ( column1, column2, ... ) values ( val1, val2, ... );</span>
+                        <br>
+                        <p>If the order of columns insertion is the same as in the table, you don't need to specify the order:</p>
+                        <span class = "code">INSERT INTO table values ( val1, val2, ... );</span>
+                        <p>Sometimes we will have to enquire on data stored in several tables so will need to join them:</p>
+                        <span class = "code">SELECT T.thing, S.stuff</span>
+                        <span class = "code">FROM T,S</span>
+                        <span class = "code">WHERE T.target = S.match</span>
+                        <br>
+                        <p>or...</p>
+                        <span class = "code">SELECT T.thing, S.stuff</span>
+                        <span class = "code">FROM T JOIN S</span>
+                        <span class = "code">ON T.target = S.match</span>
+                        <span class = "code">WHERE food = 'fish'</span>
+                        <br>
+                        <p>You can replace WHERE (that is performed on the underlying tables) by HAVING, which performs the limitation on the resulting set.</p>
+                        <a href="http://www.postgresql.org/docs/9.4/static/sql-select.html#SQL-HAVING">More about HAVING...</a>
+
+
+                    </div> <!-- Closing tag point -->
+
+                    <div class = "point">
+                        <h3>Linux Command Line</h3>
+
+                    </div> <!-- Closing tag point -->
 
             </div> <!--Closing tag topic-->
 

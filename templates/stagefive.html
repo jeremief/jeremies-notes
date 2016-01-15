@@ -136,11 +136,13 @@
                         <p>Please the notes above for what I have learned from an API point of view.</p>
                         <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
 
-                        <!-- <form action = "/api"> -->
-                        <form action = "/api">
+                        <form action = "/api" method = "post">
                             <input name="article" placeholder="Enter topic...">
                             <input type="submit"> <br>
-                            <div class="summary">Summary: <br> <p>{{summary}}</p></div>
+                            <div class="summary">Summary: <br> <p>{{summary}}</p>
+                                <br>
+                                <a href = '{{wlink}}'>Find out more...</a>
+                            </div>
                         </form>
 
                     </div> <!-- Closing tag point -->

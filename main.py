@@ -9,6 +9,7 @@ import os
 import jinja2
 import webapp2
 import pprint
+import datetime
 
 # Set up jinja environment
 
@@ -23,6 +24,13 @@ comments_header.close()
 comments_footer = open("templates/comments_footer_template.html")
 COMMENTS_PAGE_FOOTER_TEMPLATE = comments_footer.read()
 comments_footer.close()
+
+
+def summary_key():
+    """
+    Creating a key of the summary for the Google Datastore.
+    """
+    return ndb.Key('Summary', 'summary')
 
 
 def comment_wall_key():
@@ -46,6 +54,13 @@ def swear_check(swear_check_text):
     else:
         final_text = swear_check_text
     return final_text
+
+
+class SummaryClass(ndb.Model):
+    """A model for a Wikipedia summary."""
+    content = ndb.StringProperty(indexed=False)
+    wlink = ndb.StringProperty(indexed=False)
+    time_request = ndb.DateTimeProperty(indexed=True, auto_now_add=True)
 
 
 class Handler(webapp2.RequestHandler):
@@ -99,8 +114,22 @@ class FivePage(Handler):
 
         # summary = "This is the summary"
 
+        number_of_summaries_to_fetch = 1
+        summary_query = SummaryClass.query(ancestor = summary_key()).order(-SummaryClass.time_request)
+        summary_list = summary_query.fetch(number_of_summaries_to_fetch)
+        summary = summary_list[0]
+        summary_content = str(summary.content)
+        summary_link = str(summary.wlink)
+
+
+
+
+
+
         template_values = {
-            'summary': summary,
+            # 'summary': summary,
+            'summary': summary_content,
+            'wlink': summary_link,
         }
 
         template = jinja_env.get_template('stagefive.html')
@@ -108,7 +137,8 @@ class FivePage(Handler):
 
 
 class ApiExemple(Handler):
-    def get(self):
+    # def get(self):
+    def post(self):
 
         num_characters_before_id = 9
         num_characters_before_redirect = 0
@@ -154,7 +184,11 @@ class ApiExemple(Handler):
         print start_summary
         print end_summary
         raw_summary = res[start_summary:end_summary]
-        print raw_summary
+
+        MySummary = SummaryClass(parent = summary_key())
+        MySummary.content = raw_summary
+        MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
+        MySummary.put()
 
         self.redirect('/five?summary=' + raw_summary)
 
@@ -165,6 +199,8 @@ class Comment(ndb.Model):
     """A main model for representing an individual comment."""
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
+
+
 
 
 class CommentsPage(webapp2.RequestHandler):

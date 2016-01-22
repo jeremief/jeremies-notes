@@ -2,6 +2,10 @@ import cgi
 import urllib
 import urllib2
 import webbrowser
+import unicodedata
+import sys
+import locale
+import re
 
 from google.appengine.ext import ndb
 
@@ -55,6 +59,47 @@ def swear_check(swear_check_text):
         final_text = swear_check_text
     return final_text
 
+def curly_cleaner(raw_string):
+    while raw_string.find('{{')!= -1:
+        start_curly = raw_string.find('{{')
+        end_curly = raw_string.find('}}',start_curly)+ 2
+        raw_string = raw_string[:start_curly] + raw_string[end_curly:]
+    return raw_string
+
+def ref_cleaner(raw_string):
+    while raw_string.find('<ref')!= -1:
+        start_ref = raw_string.find('<ref')
+        end_ref = raw_string.find('</ref>',start_ref)+ 6
+        raw_string = raw_string[:start_ref] + raw_string[end_ref:]
+    return raw_string
+
+def pipe_cleaner(raw_string):
+    while raw_string.find('|') != -1:
+        pipe = raw_string.find('|')
+        begining_word = raw_string.rfind('[',0, pipe)
+        raw_string = raw_string[:begining_word+1] + raw_string[pipe + 1:]
+    return raw_string
+
+def square_cleaner(raw_string):
+    while raw_string.find('[[') != -1:
+        start_square = raw_string.find('[[')
+        end_square = raw_string.find(']]', start_square)
+        raw_string = raw_string[:start_square] + raw_string[start_square+2 : end_square] + raw_string[end_square+2:]
+    return raw_string
+
+def various_cleaner(raw_string):
+    raw_string = raw_string.replace('&nbsp;',' ')
+    return raw_string
+
+def text_cleaner(raw_text):
+    curly_cleaned_text = curly_cleaner(raw_text)
+    ref_cleaned_text = ref_cleaner(curly_cleaned_text)
+    pipe_cleaned_text = pipe_cleaner(ref_cleaned_text)
+    square_cleaned_text = square_cleaner(pipe_cleaned_text)
+    cleaned_text = various_cleaner(square_cleaned_text)
+    cleaned_text = cleaned_text.decode('unicode-escape')
+    cleaned_text = cleaned_text.encode('utf-8')
+    return cleaned_text
 
 class SummaryClass(ndb.Model):
     """A model for a Wikipedia summary."""
@@ -108,7 +153,7 @@ class FourPage(Handler):
 class FivePage(Handler):
     def get(self,*summary):
 
-        summary = self.request.get('summary','')
+        # summary = self.request.get('summary','')
         # self.render("stagefive.html")
         # self.response.out.write(summary)
 
@@ -117,27 +162,29 @@ class FivePage(Handler):
         number_of_summaries_to_fetch = 1
         summary_query = SummaryClass.query(ancestor = summary_key()).order(-SummaryClass.time_request)
         summary_list = summary_query.fetch(number_of_summaries_to_fetch)
-        summary = summary_list[0]
-        summary_content = str(summary.content)
-        summary_link = str(summary.wlink)
+        if summary_list:
+            summary = summary_list[0]
+            # summary_content = str(summary.content)
+            summary_content = summary.content
+            summary_link = str(summary.wlink)
 
+            template_values = {
+                # 'summary': summary,
+                'summary': summary_content,
+                'wlink': summary_link,
+            }
 
-
-
-
-
-        template_values = {
-            # 'summary': summary,
-            'summary': summary_content,
-            'wlink': summary_link,
-        }
-
-        template = jinja_env.get_template('stagefive.html')
-        self.response.write(template.render(template_values))
+            template = jinja_env.get_template('stagefive.html')
+            self.response.write(template.render(template_values))
+        else:
+            self.render("stagefive.html")
 
 
 class ApiExemple(Handler):
-    # def get(self):
+
+
+
+
     def post(self):
 
         num_characters_before_id = 9
@@ -185,12 +232,34 @@ class ApiExemple(Handler):
         print end_summary
         raw_summary = res[start_summary:end_summary]
 
+        # Clean text
+
+        # working_text = raw_summary
+
+        # # if working_text.find('{{')!=-1:
+        # while working_text.find('{{')!= -1:
+        #     start_curly = working_text.find('{{')
+        #     end_curly = working_text.find('}}',start_curly)
+        #     working_text = working_text[:start_curly] + working_text[end_curly:]
+
+        # raw_summary = working_text
+
+        raw_summary = text_cleaner(raw_summary)
+
+
+
+        # Format summary for unicode
+        # raw_summary = raw_summary.decode('unicode-escape')
+        # raw_summary = raw_summary.encode('utf-8')
+
         MySummary = SummaryClass(parent = summary_key())
+
+
         MySummary.content = raw_summary
         MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
         MySummary.put()
 
-        self.redirect('/five?summary=' + raw_summary)
+        self.redirect('/five')
 
 
 

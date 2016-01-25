@@ -87,6 +87,13 @@ def square_cleaner(raw_string):
         raw_string = raw_string[:start_square] + raw_string[start_square+2 : end_square] + raw_string[end_square+2:]
     return raw_string
 
+def note_cleaner(raw_string):
+    while raw_string.find('<!--') != -1:
+        start_note = raw_string.find('<!--')
+        end_note = raw_string.find('-->', start_note) + 3
+        raw_string = raw_string[:start_note] + raw_string[end_note:]
+    return raw_string
+
 def various_cleaner(raw_string):
     raw_string = raw_string.replace('&nbsp;',' ')
     return raw_string
@@ -96,7 +103,8 @@ def text_cleaner(raw_text):
     ref_cleaned_text = ref_cleaner(curly_cleaned_text)
     pipe_cleaned_text = pipe_cleaner(ref_cleaned_text)
     square_cleaned_text = square_cleaner(pipe_cleaned_text)
-    cleaned_text = various_cleaner(square_cleaned_text)
+    note_cleaned_text = note_cleaner(square_cleaned_text)
+    cleaned_text = various_cleaner(note_cleaned_text)
     cleaned_text = cleaned_text.decode('unicode-escape')
     cleaned_text = cleaned_text.encode('utf-8')
     return cleaned_text

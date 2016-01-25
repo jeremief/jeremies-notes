@@ -183,8 +183,6 @@ class FivePage(Handler):
 class ApiExemple(Handler):
 
 
-
-
     def post(self):
 
         num_characters_before_id = 9
@@ -225,25 +223,35 @@ class ApiExemple(Handler):
                     user_entry = redirect
                     redirect_flag = False
 
+        MySummary = SummaryClass(parent = summary_key())
+
         if page_id !=-1:
             start_summary = res.find("'''")
             end_summary = res.find("==")
 
-            # print start_summary
-            # print end_summary
-            raw_summary = res[start_summary:end_summary]
+            if start_summary != -1 and start_summary <end_summary:
 
-            raw_summary = text_cleaner(raw_summary)
+                # print start_summary
+                # print end_summary
+                raw_summary = res[start_summary:end_summary]
 
-            MySummary = SummaryClass(parent = summary_key())
+                raw_summary = text_cleaner(raw_summary)
 
-            MySummary.content = raw_summary
-            MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
-            MySummary.put()
 
-            self.redirect('/five')
+                MySummary.content = raw_summary
+                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
+                MySummary.put()
+
+                self.redirect('/five')
+
+            else:
+                MySummary.content = "Unfortunately, we couldn't generate a summary for this page. Please follow the link below to find out more."
+                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
+                MySummary.put()
+                self.redirect('/five')
+
+
         else:
-            MySummary = SummaryClass(parent = summary_key())
             MySummary.content = "No such page referenced by Wikipedia."
             MySummary.wlink = 'None'
             MySummary.put()

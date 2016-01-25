@@ -211,7 +211,7 @@ class ApiExemple(Handler):
             page_id = int(page_id)
 
             if page_id == -1:
-                print "No such page"
+                # print "No such page"
                 redirect_flag = True
             else:
                 # if there is a REDIRECT, use it as a new user entry
@@ -225,41 +225,31 @@ class ApiExemple(Handler):
                     user_entry = redirect
                     redirect_flag = False
 
+        if page_id !=-1:
+            start_summary = res.find("'''")
+            end_summary = res.find("==")
 
-        start_summary = res.find("'''")
-        end_summary = res.find("==")
-        print start_summary
-        print end_summary
-        raw_summary = res[start_summary:end_summary]
+            # print start_summary
+            # print end_summary
+            raw_summary = res[start_summary:end_summary]
 
-        # Clean text
+            raw_summary = text_cleaner(raw_summary)
 
-        # working_text = raw_summary
+            MySummary = SummaryClass(parent = summary_key())
 
-        # # if working_text.find('{{')!=-1:
-        # while working_text.find('{{')!= -1:
-        #     start_curly = working_text.find('{{')
-        #     end_curly = working_text.find('}}',start_curly)
-        #     working_text = working_text[:start_curly] + working_text[end_curly:]
+            MySummary.content = raw_summary
+            MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
+            MySummary.put()
 
-        # raw_summary = working_text
+            self.redirect('/five')
+        else:
+            MySummary = SummaryClass(parent = summary_key())
+            MySummary.content = "No such page referenced by Wikipedia."
+            MySummary.wlink = 'None'
+            MySummary.put()
 
-        raw_summary = text_cleaner(raw_summary)
+            self.redirect('/five')
 
-
-
-        # Format summary for unicode
-        # raw_summary = raw_summary.decode('unicode-escape')
-        # raw_summary = raw_summary.encode('utf-8')
-
-        MySummary = SummaryClass(parent = summary_key())
-
-
-        MySummary.content = raw_summary
-        MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
-        MySummary.put()
-
-        self.redirect('/five')
 
 
 

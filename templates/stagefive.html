@@ -141,7 +141,9 @@
                             <input type="submit"> <br>
                             <div class="summary">Summary: <br> <p>{{summary}}</p>
                                 <br>
+                                {% if wlink != 'None' %}
                                 <a href='{{wlink}}' target='_blank' >Find out more...</a>
+                                {% endif %}
                             </div>
                         </form>
 

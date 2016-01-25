@@ -250,21 +250,21 @@ class ApiExemple(Handler):
                 MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
                 MySummary.put()
 
-                self.redirect('/five')
+                self.redirect('/five#summary')
 
             else:
                 MySummary.content = "Unfortunately, we couldn't generate a summary for this page. Please follow the link below to find out more."
                 MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
                 MySummary.put()
-                self.redirect('/five')
+                self.redirect('/five#summary')
 
 
         else:
-            MySummary.content = "No such page referenced by Wikipedia."
+            MySummary.content = "No such page referenced by Wikipedia or summary is not accessible. Please enter another search."
             MySummary.wlink = 'None'
             MySummary.put()
 
-            self.redirect('/five')
+            self.redirect('/five#summary')
 
 
 

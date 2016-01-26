@@ -1,19 +1,12 @@
 import cgi
 import urllib
 import urllib2
-import webbrowser
-import unicodedata
-import sys
-import locale
-import re
 
 from google.appengine.ext import ndb
 
 import os
 import jinja2
 import webapp2
-import pprint
-import datetime
 
 # Set up jinja environment
 
@@ -84,7 +77,8 @@ def square_cleaner(raw_string):
     while raw_string.find('[[') != -1:
         start_square = raw_string.find('[[')
         end_square = raw_string.find(']]', start_square)
-        raw_string = raw_string[:start_square] + raw_string[start_square+2 : end_square] + raw_string[end_square+2:]
+        raw_string = raw_string[:start_square] + raw_string[start_square+2 : \
+        end_square] + raw_string[end_square+2:]
     return raw_string
 
 def note_cleaner(raw_string):
@@ -161,26 +155,17 @@ class FourPage(Handler):
 class FivePage(Handler):
     def get(self,*summary):
 
-        # summary = self.request.get('summary','')
-        # self.render("stagefive.html")
-        # self.response.out.write(summary)
-
-        # summary = "This is the summary"
-
         number_of_summaries_to_fetch = 1
-        summary_query = SummaryClass.query(ancestor = summary_key()).order(-SummaryClass.time_request)
+        summary_query = SummaryClass.query(ancestor = summary_key()).\
+        order(-SummaryClass.time_request)
         summary_list = summary_query.fetch(number_of_summaries_to_fetch)
         if summary_list:
             summary = summary_list[0]
-            # summary_content = str(summary.content)
             summary_content = summary.content
             summary_link = str(summary.wlink)
 
-            template_values = {
-                # 'summary': summary,
-                'summary': summary_content,
-                'wlink': summary_link,
-            }
+            template_values = {'summary': summary_content,
+                               'wlink': summary_link,}
 
             template = jinja_env.get_template('stagefive.html')
             self.response.write(template.render(template_values))
@@ -205,7 +190,8 @@ class ApiExemple(Handler):
             user_entry = user_entry.title()
             modified_user_entry = user_entry.replace(" ", "_")
             print modified_user_entry
-            url_for_api = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + modified_user_entry +'&prop=revisions&rvprop=content&format=json'
+            url_for_api = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + \
+            modified_user_entry +'&prop=revisions&rvprop=content&format=json'
             response = urllib2.urlopen(url_for_api)
             res = response.read()
             response.close()
@@ -225,9 +211,12 @@ class ApiExemple(Handler):
                 start_redirect = res.find("REDIRECT")
                 if start_redirect != -1:
                     first_curly_before_redirect = res.find('[',start_redirect)
-                    num_characters_before_redirect = first_curly_before_redirect - start_redirect + 2
+                    num_characters_before_redirect = \
+                    first_curly_before_redirect - start_redirect + 2
                     end_redirect = res.find(']]',start_redirect)
-                    redirect = res[start_redirect + num_characters_before_redirect:end_redirect]
+                    redirect = res[start_redirect +
+                                   num_characters_before_redirect:
+                                   end_redirect]
                     user_entry = redirect
                     redirect_flag = False
 
@@ -239,28 +228,31 @@ class ApiExemple(Handler):
 
             if start_summary != -1 and start_summary <end_summary:
 
-                # print start_summary
-                # print end_summary
                 raw_summary = res[start_summary:end_summary]
 
                 raw_summary = text_cleaner(raw_summary)
 
 
                 MySummary.content = raw_summary
-                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
+                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ \
+                str(page_id)
                 MySummary.put()
 
                 self.redirect('/five#summary')
 
             else:
-                MySummary.content = "Unfortunately, we couldn't generate a summary for this page. Please follow the link below to find out more."
-                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ str(page_id)
+                MySummary.content = "Unfortunately, we couldn't generate a \
+                summary for this page. Please follow the link below to find \
+                out more."
+                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ \
+                str(page_id)
                 MySummary.put()
                 self.redirect('/five#summary')
 
 
         else:
-            MySummary.content = "No such page referenced by Wikipedia or summary is not accessible. Please enter another search."
+            MySummary.content = "No such page referenced by Wikipedia \
+            or summary is not accessible. Please enter another search."
             MySummary.wlink = 'None'
             MySummary.put()
 

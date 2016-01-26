@@ -4,33 +4,20 @@
 
 
 
-		<div class = "stage">
-            <h1>Stage 5: Personal notes on topics covered and exploration of Back End Options</h1>
+        <div class = "stage">
+            <h1>Stage 5: Exploration of the Back End Options</h1>
+            <div class = "topic">
+                <h2>Go explore - What I have learned</h2>
+                <p>Going through all this material really made me relise that what I really would like is to be able to build complex web applications with databases and APIs that can serve all sorts of clients. For this reason, I have chosen to focus on option three: Full Stack and Back End option.</p>
+                <p>At the same time, I also realise that user experience is important and that to know how to make a website that is pleasant to look at should also appear on the todo list of a full stack developper.</p>
+                <p>This this in mind, I decided explain here what I learned about APIs and also use CSS and JavaScript to implement a nightmode for this page.</p>
+            </div>
+
 
             <div class = "topic">
-                <h2>Meet JavaScript</h2>
-                    <p>JavaScript is THE programming language of the web. There are two ways of adding it: firstly into the html through a script tag <span class = "code">&lt;script&gt;&lt;/script&gt;</span> or in a separate .js file. Like <a href="http://javascript.info/tutorial/adding-script-html#external-scripts">here</a>.</p>
-
-                    Here are some new concepts:
-                    <ul>
-                    	<li>Declaring variables: the syntax is the same for strings and numbers. var declares a new variable for all data types: <span class = "code"> var variableName = someValue</span>.</li>
-                    	<li>Replacing strings: follow the format <span class = "code">string.replace("old","new")</span></li>
-                    </ul>
-
-                    You can use the console of the webbrowser to debug your Javascript: <br>
-
-                    <span class = "code">&lt;script type="text/javascript"&gt;</span><br>
-					<span class = "code">var firstName = "Jeremie";</span><br>
-					<span class = "code">console.log (firstName);</span><br>
-					<span class = "code">&lt;/script&gt;</span><br>
-
-
-
-
-            </div> <!--Closing tag topic-->
-
-            <div class = "topic">
-                <h2>The power of APIs</h2>
+            <h2>The power of APIs</h2>
+                <div class = "point">
+                <h3>Summary of Udacity lesson</h3>
                 <p>XML was invented in the 1990's to facilitate computer to computer communication. It is related to html as they have a common ancestor, <a href="https://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language">SGML</a>, invented in the 1980's. Html can actually be expressed as XML, using the type xhtml oin the DOCTYPE.</p>
 
                 <p>Some characteristics of xml are:</p>
@@ -85,116 +72,54 @@
                 </ul>
 
                 <p>Overall, make sure to rate-limit yourself to avoid hitting servers too hard and that you write good user-agents so that people building the APIs that use can contact you if something goes wrong.</p>
+                </div>
+
+                <div class = "point">
+                <h3>Additional resources</h3>
 
 
-
-            </div> <!--Closing tag topic-->
-
-
-            <div class = "topic">
-                <h2>Recursion and parallel computing</h2>
-
-            </div> <!--Closing tag topic-->
+                </div>
+            </div>
 
             <div class = "topic">
-                <h2>Solving big problems</h2>
-                <p>This section is presented by <a href = "https://en.wikipedia.org/wiki/Peter_Norvig">Peter Norvig</a>, a veteran computer scientist at Google. He explains how to break down a complex problem (creating a Scrabble game) into smaller, more manageable problems.</p>
-                <br>
-                <p>There is a lot useful lessons to take in here and I plan to come back to this course later on. One of the useful things that I learned about it to have a list of concepts to implement.</p>
+                <h2>API implentation</h2>
 
-            </div> <!--Closing tag topic-->
+                <div class = "point">
+                    <h3 id = "summary">The Wikipedia API</h3>
+                    <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
+
+                    <form action = "/api" method = "post">
+                        <input name="article" placeholder="Enter topic...">
+                        <input type="submit"> <br>
+                        <div class="summary">Summary: <br> <p>{{summary}}</p>
+                            <br>
+                            {% if wlink != 'None' %}
+                            <a href='{{wlink}}' target='_blank' >Find out more...</a>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             <div class = "topic">
                 <h2>Making pages look good</h2>
                 <p>Combining CSS and JavaScript can be very useful to design web pages that will render well on any browser and on screens of any size.</p>
-                <p>I had a lot of pleasure experimenting with the Dash tool created by General Assembly and it really made me realise how flexible web-design can be. here is the list of links to my practice exercises:</P>
+                <p>I had a lot of pleasure experimenting with the Dash tool created by General Assembly and it really made me realise how flexible web-design can be. Here is the list of links to my practice exercises:</P>
                 <ul>
-                    <li><a href= "https://dash.generalassemb.ly/Jeremie/build-your-own-personal-website">personal website</a></li>
-                    <li><a href = "https://dash.generalassemb.ly/projects/build-your-own-blog-theme">personal blog theme</a></li>
-                    <li><a href="https://dash.generalassemb.ly/projects/build-your-own-business-website">personal website</a></li>
+                    <li><a href= "https://dash.generalassemb.ly/Jeremie/build-your-own-personal-website" target='_blank'>personal website</a></li>
+                    <li><a href = "https://dash.generalassemb.ly/Jeremie/build-your-own-blog-theme" target='_blank'>personal blog theme</a></li>
+                    <li><a href="https://dash.generalassemb.ly/Jeremie/build-your-own-business-website" target='_blank'>personal website</a></li>
                 </ul>
 
 
                 <P>It inspired me to use JQuery to create a "Night mode" for this page: </p>
 
                 <button>Night mode</button>
-
-            </div> <!--Closing tag topic-->
-
-            <div class = "topic">
-                <h2>Go explore - What I have learned</h2>
-                <p>Going through all this material really made me relise that what I really would like is to be able to build complex web applications with databases and APIs that can serve all sorts of clients. For this reason, I have chosen to focus on option three: Full Stack and Back End option.</p>
-
-                    <div class = "point">
-                        <h3>Web Development</h3>
-
-                    </div> <!-- Closing tag point -->
+            </div>
 
 
-                    <div class = "point">
-                        <h3 id = "summary">APIs</h3>
-                        <p>Please the notes above for what I have learned from an API point of view.</p>
-                        <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
 
-                        <form action = "/api" method = "post">
-                            <input name="article" placeholder="Enter topic...">
-                            <input type="submit"> <br>
-                            <div class="summary">Summary: <br> <p>{{summary}}</p>
-                                <br>
-                                {% if wlink != 'None' %}
-                                <a href='{{wlink}}' target='_blank' >Find out more...</a>
-                                {% endif %}
-                            </div>
-                        </form>
-
-                    </div> <!-- Closing tag point -->
-
-
-                    <div class = "point">
-                        <h3>Relational databases</h3>
-                        <p>Datbases are a way of storing data in a permanent fashion. In the case of relational databases, the data is stored in one or several tables (columns + rows) that link to each other. We can then use queries to retrieve or modify the data.</p>
-                        <p>In order to join tables properly, we need to make sure that the various elements of these tables are properly identified, which best done by using keys. Keys can be numerical (ID number) or alpha (country ame), as long as they are and remain unique.</p>
-                        <p>One of the main languages used to query databases is the SQL language. Here is a list of some of the data types that it uses:</p>
-                        <ul>
-                            <li>text</li>
-                            <li>integer</li>
-                            <li>date (keep putting it in between single quotes</li>
-                            <li><a href = "http://www.postgresql.org/docs/9.4/static/datatype.html">Complete list for PostgreSQL</a></li>
-                        </ul>
-                        <p>SQL formulates queries this way: <br> <span class = "code">SELECT column1, column2 FROM table1 WHERE condition1 AND condition2  GROUP BY column2 ORDER BY column1 DESC;</span> Note that GROUP BY is only for aggregations:</p>
-                        <span class = "code">QUERY = "SELECT species, count(*) as number FROM animals GROUP BY species ORDER BY number DESC"</span>
-                        <br>
-                        <p>We will also need to insert rows in columns to update our tables once in a while. This can be done by using the INSERT INTO statement:</p>
-                        <span class = "code">INSERT INTO table ( column1, column2, ... ) values ( val1, val2, ... );</span>
-                        <br>
-                        <p>If the order of columns insertion is the same as in the table, you don't need to specify the order:</p>
-                        <span class = "code">INSERT INTO table values ( val1, val2, ... );</span>
-                        <p>Sometimes we will have to enquire on data stored in several tables so will need to join them:</p>
-                        <span class = "code">SELECT T.thing, S.stuff</span>
-                        <span class = "code">FROM T,S</span>
-                        <span class = "code">WHERE T.target = S.match</span>
-                        <br>
-                        <p>or...</p>
-                        <span class = "code">SELECT T.thing, S.stuff</span>
-                        <span class = "code">FROM T JOIN S</span>
-                        <span class = "code">ON T.target = S.match</span>
-                        <span class = "code">WHERE food = 'fish'</span>
-                        <br>
-                        <p>You can replace WHERE (that is performed on the underlying tables) by HAVING, which performs the limitation on the resulting set.</p>
-                        <a href="http://www.postgresql.org/docs/9.4/static/sql-select.html#SQL-HAVING">More about HAVING...</a>
-
-
-                    </div> <!-- Closing tag point -->
-
-                    <div class = "point">
-                        <h3>Linux Command Line</h3>
-
-                    </div> <!-- Closing tag point -->
-
-            </div> <!--Closing tag topic-->
-
-
-        </div> <!--Closing tag stage-->
+        </div>
 
 
 

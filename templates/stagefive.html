@@ -8,7 +8,7 @@
             <h1>Stage 5: Exploration of the Back End Options</h1>
             <div class = "topic">
                 <h2>Go explore - What I have learned</h2>
-                <p>Going through all this material really made me relise that what I really would like is to be able to build complex web applications with databases and APIs that can serve all sorts of clients. For this reason, I have chosen to focus on option three: Full Stack and Back End option.</p>
+                <p>Going through all this material really made me realise that what I really would like is to be able to build complex web applications with databases and APIs that can serve all sorts of clients. For this reason, I have chosen to focus on option three: Full Stack and Back End option.</p>
                 <p>At the same time, I also realise that user experience is important and that to know how to make a website that is pleasant to look at should also appear on the todo list of a full stack developper.</p>
                 <p>This this in mind, I decided explain here what I learned about APIs and also use CSS and JavaScript to implement a nightmode for this page.</p>
             </div>
@@ -16,7 +16,7 @@
 
             <div class = "topic">
             <h2>The power of APIs</h2>
-                <div class = "point">
+                <!-- <div class = "point"> -->
                 <h3>Summary of Udacity lesson</h3>
                 <p>XML was invented in the 1990's to facilitate computer to computer communication. It is related to html as they have a common ancestor, <a href="https://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language">SGML</a>, invented in the 1980's. Html can actually be expressed as XML, using the type xhtml oin the DOCTYPE.</p>
 
@@ -72,33 +72,28 @@
                 </ul>
 
                 <p>Overall, make sure to rate-limit yourself to avoid hitting servers too hard and that you write good user-agents so that people building the APIs that use can contact you if something goes wrong.</p>
-                </div>
 
-                <div class = "point">
                 <h3>Additional resources</h3>
+                <p><b><a href="https://www.youtube.com/watch?v=B9vPoCOP7oY&index=42&list=WL" target="_blank">YouTube Video</a></b>: This video makes a good job of explaining that one of the main advantages of APIs is that they enable your application to use the services of larger websites and/or applications. While a normal user would have to log into Facebook or Google using their website, an API enables your application to bypass this and talk directly to their backend.</p>
+                <p><u><b>Various API libraries</b></u>: there many of them on the web: <a href = "https://www.publicapis.com" target="_blank">publicapis.com</a>, <a href="http://www.programmableweb.com" target="_blank">programmableweb.com</a>, <a href="https://www.mashape.com" target="_blank">mashape.com</a></p>
 
-
-                </div>
             </div>
 
             <div class = "topic">
                 <h2>API implentation</h2>
+                <h3 id = "summary">The Wikipedia API</h3>
+                <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
 
-                <div class = "point">
-                    <h3 id = "summary">The Wikipedia API</h3>
-                    <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
-
-                    <form action = "/api" method = "post">
-                        <input name="article" placeholder="Enter topic...">
-                        <input type="submit"> <br>
-                        <div class="summary">Summary: <br> <p>{{summary}}</p>
-                            <br>
-                            {% if wlink != 'None' %}
-                            <a href='{{wlink}}' target='_blank' >Find out more...</a>
-                            {% endif %}
-                        </div>
-                    </form>
-                </div>
+                <form action = "/api" method = "post">
+                    <input name="article" placeholder="Enter topic...">
+                    <input type="submit"> <br>
+                    <div class="summary">Summary: <br> <p>{{summary}}</p>
+                        <br>
+                        {% if wlink != 'None' %}
+                        <a href='{{wlink}}' target='_blank' >Find out more...</a>
+                        {% endif %}
+                    </div>
+                </form>
             </div>
 
             <div class = "topic">

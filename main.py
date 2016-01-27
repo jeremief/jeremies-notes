@@ -53,43 +53,62 @@ def swear_check(swear_check_text):
     return final_text
 
 def curly_cleaner(raw_string):
-    while raw_string.find('{{')!= -1:
+    end_flag = False
+    while raw_string.find('{{')!= -1 and end_flag == False:
         start_curly = raw_string.find('{{')
-        end_curly = raw_string.find('}}',start_curly)+ 2
-        raw_string = raw_string[:start_curly] + raw_string[end_curly:]
+        if raw_string.find('}}', start_curly)!=-1:
+            end_curly = raw_string.find('}}',start_curly)+ 2
+            raw_string = raw_string[:start_curly] + raw_string[end_curly:]
+        else:
+            end_flag = True
     return raw_string
 
 def ref_cleaner(raw_string):
-    while raw_string.find('<ref')!= -1:
+    end_flag = False
+    while raw_string.find('<ref')!= -1 and end_flag == False:
         start_ref = raw_string.find('<ref')
-        end_ref = raw_string.find('</ref>',start_ref)+ 6
-        raw_string = raw_string[:start_ref] + raw_string[end_ref:]
+        if raw_string.find('</ref>', start_ref)!=-1:
+            end_ref = raw_string.find('</ref>',start_ref)+ 6
+            raw_string = raw_string[:start_ref] + raw_string[end_ref:]
+        else:
+            end_flag = True
     return raw_string
 
 def pipe_cleaner(raw_string):
-    while raw_string.find('|') != -1:
+    end_flag = False
+    while raw_string.find('|') != -1 and end_flag == False:
         pipe = raw_string.find('|')
         begining_word = raw_string.rfind('[',0, pipe)
         raw_string = raw_string[:begining_word+1] + raw_string[pipe + 1:]
     return raw_string
 
 def square_cleaner(raw_string):
-    while raw_string.find('[[') != -1:
+    end_flag = False
+    while raw_string.find('[[') != -1 and end_flag == False:
         start_square = raw_string.find('[[')
-        end_square = raw_string.find(']]', start_square)
-        raw_string = raw_string[:start_square] + raw_string[start_square+2 : \
-        end_square] + raw_string[end_square+2:]
+        if raw_string.find(']]', start_square)!=-1:
+            end_square = raw_string.find(']]', start_square)
+            raw_string = raw_string[:start_square] + raw_string[start_square+2 : \
+            end_square] + raw_string[end_square+2:]
+        else:
+            end_flag = True
     return raw_string
 
 def note_cleaner(raw_string):
-    while raw_string.find('<!--') != -1:
+    end_flag = False
+    while raw_string.find('<!--') != -1 and end_flag == False:
         start_note = raw_string.find('<!--')
-        end_note = raw_string.find('-->', start_note) + 3
-        raw_string = raw_string[:start_note] + raw_string[end_note:]
+        if raw_string.find('-->', start_note)!=-1:
+            end_note = raw_string.find('-->', start_note) + 3
+            raw_string = raw_string[:start_note] + raw_string[end_note:]
+        else:
+            end_flag = True
     return raw_string
 
 def various_cleaner(raw_string):
     raw_string = raw_string.replace('&nbsp;',' ')
+    raw_string = raw_string.replace('(; ','(')
+    raw_string = raw_string.replace('(; ; ','(')
     return raw_string
 
 def text_cleaner(raw_text):

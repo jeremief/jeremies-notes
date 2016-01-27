@@ -202,80 +202,91 @@ class ApiExemple(Handler):
         redirect_flag = False
 
         user_entry = self.request.get("article")
-        # self.response.out.write(user_entry)
 
-        while redirect_flag == False:
-            #Extract text from URL
-            user_entry = user_entry.title()
-            modified_user_entry = user_entry.replace(" ", "_")
-            print modified_user_entry
-            url_for_api = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + \
-            modified_user_entry +'&prop=revisions&rvprop=content&format=json'
-            response = urllib2.urlopen(url_for_api)
-            res = response.read()
-            response.close()
+        if user_entry != "":
 
-            # Find page ID
-            start_pageid = res.find("pages") + num_characters_before_id
-            end_pageid = res.find('"',start_pageid)
-            page_id = res[start_pageid:end_pageid]
-            page_id = int(page_id)
+            while redirect_flag == False:
+                #Extract text from URL
+                user_entry = user_entry.title()
+                modified_user_entry = user_entry.replace(" ", "_")
+                print modified_user_entry
+                url_for_api = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + \
+                modified_user_entry +'&prop=revisions&rvprop=content&format=json'
+                response = urllib2.urlopen(url_for_api)
+                res = response.read()
+                response.close()
 
-            if page_id == -1:
-                # print "No such page"
-                redirect_flag = True
-            else:
-                # if there is a REDIRECT, use it as a new user entry
-                redirect_flag = True
-                start_redirect = res.find("REDIRECT")
-                if start_redirect != -1:
-                    first_curly_before_redirect = res.find('[',start_redirect)
-                    num_characters_before_redirect = \
-                    first_curly_before_redirect - start_redirect + 2
-                    end_redirect = res.find(']]',start_redirect)
-                    redirect = res[start_redirect +
-                                   num_characters_before_redirect:
-                                   end_redirect]
-                    user_entry = redirect
-                    redirect_flag = False
+                # Find page ID
+                start_pageid = res.find("pages") + num_characters_before_id
+                end_pageid = res.find('"',start_pageid)
+                page_id = res[start_pageid:end_pageid]
+                page_id = int(page_id)
+
+                if page_id == -1:
+                    # print "No such page"
+                    redirect_flag = True
+                else:
+                    # if there is a REDIRECT, use it as a new user entry
+                    redirect_flag = True
+                    start_redirect = res.find("REDIRECT")
+                    if start_redirect != -1:
+                        first_curly_before_redirect = res.find('[',start_redirect)
+                        num_characters_before_redirect = \
+                        first_curly_before_redirect - start_redirect + 2
+                        end_redirect = res.find(']]',start_redirect)
+                        redirect = res[start_redirect +
+                                       num_characters_before_redirect:
+                                       end_redirect]
+                        user_entry = redirect
+                        redirect_flag = False
 
         MySummary = SummaryClass(parent = summary_key())
 
-        if page_id !=-1:
-            start_summary = res.find("'''")
-            end_summary = res.find("==")
+        if user_entry != "":
 
-            if start_summary != -1 and start_summary <end_summary:
+            if page_id !=-1:
+                start_summary = res.find("'''")
+                end_summary = res.find("==")
 
-                raw_summary = res[start_summary:end_summary]
+                if start_summary != -1 and start_summary <end_summary:
 
-                raw_summary = text_cleaner(raw_summary)
+                    raw_summary = res[start_summary:end_summary]
+
+                    raw_summary = text_cleaner(raw_summary)
 
 
-                MySummary.content = raw_summary
-                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ \
-                str(page_id)
-                MySummary.put()
+                    MySummary.content = raw_summary
+                    MySummary.wlink = 'http://en.wikipedia.org/?curid='+ \
+                    str(page_id)
+                    MySummary.put()
 
-                self.redirect('/five#summary')
+                    self.redirect('/five#summary')
+
+                else:
+                    MySummary.content = "Unfortunately, we couldn't generate a \
+                    summary for this page. Please follow the link below to find \
+                    out more."
+                    MySummary.wlink = 'http://en.wikipedia.org/?curid='+ \
+                    str(page_id)
+                    MySummary.put()
+                    self.redirect('/five#summary')
+
 
             else:
-                MySummary.content = "Unfortunately, we couldn't generate a \
-                summary for this page. Please follow the link below to find \
-                out more."
-                MySummary.wlink = 'http://en.wikipedia.org/?curid='+ \
-                str(page_id)
+                MySummary.content = "No such page referenced by Wikipedia \
+                or summary is not accessible. Please enter another search."
+                MySummary.wlink = 'None'
                 MySummary.put()
+
                 self.redirect('/five#summary')
 
-
         else:
-            MySummary.content = "No such page referenced by Wikipedia \
-            or summary is not accessible. Please enter another search."
+            MySummary.content = "No search query was entered. Please enter \
+            query in search box"
             MySummary.wlink = 'None'
             MySummary.put()
+            self.redirect('five#summary')
 
-            self.redirect('/five#summary')
 
 
 

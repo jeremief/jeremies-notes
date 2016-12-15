@@ -1,3 +1,17 @@
+html, body, h1, h2, h3,
+p, ol, ul, li, a {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+html, body, h1,
+h2, h3, p, ol,
+ul, li, a {
+    font-size: 100%;
+    font: inherit
+}
+
 body {
 	text-align: justify;
 

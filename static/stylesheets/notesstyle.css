@@ -1,3 +1,4 @@
+/*Resetting boxes*/
 html, body, h1, h2, h3,
 p, ol, ul, li, a {
     padding: 0;
@@ -5,12 +6,14 @@ p, ol, ul, li, a {
     margin: 0;
 }
 
+/*Resetting fonts*/
 html, body, h1,
 h2, h3, p, ol,
 ul, li, a {
     font-size: 100%;
     font: inherit
 }
+
 
 body {
 	text-align: justify;
@@ -24,12 +27,16 @@ body {
     -moz-transition: background-color 1s;
 }
 
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 0 10px 0;
+}
+
 p {
-    display: block;
+    /*display: block;*/
     margin-top: 1em;
     margin-bottom: 1em;
-    margin-left: 0;
-    margin-right: 0;
 
     transition: color 1s;
     -webkit-transition: color 1s;
@@ -40,9 +47,14 @@ p {
     -moz-transition: background-color 1s;
 }
 
+li {
+    margin-left: 30px;
+}
+
 .stage {
-	color: white; /*V1.1: New colour*/
+	color: white; 
 	font-family: cursive;
+    font-size: 26px;
 	background-color: #0f9940;
 	border-radius: 20px;
 	margin: 10px;
@@ -63,10 +75,11 @@ p {
 	border-radius: 5px;
 	font-family: arial;
 	font-size: 15px;
+    margin: 10px 0 10px 0;
 	padding-left: 5px;
 	padding-right: 5px;
 	padding-bottom: 5px;
-	color: black; /*V1.1: New colour*/
+	color: black;
 
 	transition: color 1s;
     -webkit-transition: color 1s;
@@ -78,7 +91,7 @@ p {
 }
 
 .point{
-	color: black; /*v1.1: New colour*/
+	color: black; 
 
 	transition: color 1s;
     -webkit-transition: color 1s;
@@ -91,7 +104,7 @@ p {
 
 .summary{
     background-color: white;
-    display: block;
+    /*display: block;*/
     border-radius: 5px;
     padding-left: 5px;
 	padding-right: 5px;
@@ -163,19 +176,6 @@ p {
 	background-color: black;
 }
 
-.nightmode-p {
-    display: block;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.nightmode-h2 {
-	padding: 0px;
-	margin-top: 5px;
-	margin-bottom: 20px;
-}
 
 .nightmode-stage {
 	background-color: black;
@@ -192,28 +192,14 @@ p {
 	border-color: rgb(42, 192, 255);
 	border-width: 1px;
 	color: rgb(42, 192, 255);
-
-    margin-top: 23px;
-    margin-right: 0px;
-    line-height: 16px;
-
 }
 
 .nightmode-point {
 	color: rgb(42, 192, 255);
-    line-height: 10px;
 }
 
 .nightmode-summary{
 	background-color: gray;
-    font-family: arial;
-    display: block;
-    border-radius: 5px;
-    padding-left: 5px;
-	padding-right: 5px;
-	padding-bottom: 5px;
-    font-size: 15px;
-
 }
 
 .nightmode-code {

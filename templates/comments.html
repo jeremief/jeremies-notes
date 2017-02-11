@@ -1,0 +1,27 @@
+{% extends "jeremiesnotesbase.html" %}
+
+
+{% block content %}
+
+
+        <div class = "stage">
+            <h1>Tell us what you think</h1>
+        </div>
+
+<div class = "commentscontainer">
+    <form action="/comments" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Post comment"></div>
+    </form>
+
+    <h2 style = "color:red;">{{error}}</h2>
+
+
+    <hr>
+
+    {% for comment in mycomments %}
+
+    <blockquote>{{comment.content}}</blockquote>
+
+    {% endfor %}
+{% endblock %}

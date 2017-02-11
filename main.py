@@ -14,14 +14,6 @@ template_dir = os.path.join(os.path.dirname(__file__), "templates")
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
                                autoescape=True)
 
-comments_header = open("templates/comments_header_template.html")
-COMMENTS_PAGE_HEADER_TEMPLATE = comments_header.read()
-comments_header.close()
-
-comments_footer = open("templates/comments_footer_template.html")
-COMMENTS_PAGE_FOOTER_TEMPLATE = comments_footer.read()
-comments_footer.close()
-
 
 def summary_key():
     """
@@ -147,6 +139,14 @@ def text_cleaner(raw_text):
     cleaned_text = cleaned_text.decode('unicode-escape')
     cleaned_text = cleaned_text.encode('utf-8')
     return cleaned_text
+
+
+def escape_comments(comments):
+    escaped_comments = []
+    for comment in comments:
+        comment.content = cgi.escape(comment.content)
+        escaped_comments.append(comment)
+    return escaped_comments
 
 
 class SummaryClass(ndb.Model):
@@ -316,7 +316,8 @@ class Comment(ndb.Model):
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 
-class CommentsPage(webapp2.RequestHandler):
+class CommentsPage(Handler):
+    """Keeping comments structure in line with the rest of the pages"""
     def get(self):
 
         error = self.request.get('error', '')
@@ -326,13 +327,9 @@ class CommentsPage(webapp2.RequestHandler):
             ancestor=comment_wall_key()).order(-Comment.date)
         comments = comments_query.fetch(number_of_records_to_fetch)
 
-        self.response.write(COMMENTS_PAGE_HEADER_TEMPLATE % error)
+        escaped_comments = escape_comments(comments)
 
-        for comment in comments:
-            self.response.write('<blockquote>%s</blockquote><br>' %
-                                cgi.escape(comment.content))
-
-        self.response.write(COMMENTS_PAGE_FOOTER_TEMPLATE)
+        self.render("comments.html", mycomments=escaped_comments, error=error)
 
     def post(self):
         comment = Comment(parent=comment_wall_key())

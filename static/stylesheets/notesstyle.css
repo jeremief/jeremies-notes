@@ -34,7 +34,6 @@ h2 {
 }
 
 p {
-    /*display: block;*/
     margin-top: 1em;
     margin-bottom: 1em;
 
@@ -60,6 +59,9 @@ li {
 	margin: 10px;
 	padding: 10px;
 	overflow: hidden;
+    border-style: solid;
+    border-color: #0f9940;
+    border-width: 1px;
 
 	transition: color 1s;
     -webkit-transition: color 1s;
@@ -87,6 +89,10 @@ li {
 	padding-right: 5px;
 	padding-bottom: 5px;
 	color: black;
+    border-style: solid;
+    border-color: #52cc7c;
+    border-width: 1px;
+
 
 	transition: color 1s;
     -webkit-transition: color 1s;
@@ -111,7 +117,6 @@ li {
 
 .summary{
     background-color: white;
-    /*display: block;*/
     border-radius: 5px;
     padding-left: 5px;
 	padding-right: 5px;
@@ -143,6 +148,10 @@ li {
     -moz-transition: background-color 1s;
 }
 
+.left-menu-container{
+    width: 150px;
+}
+
 .menu{
 	list-style-type: none;
     margin-top: 0px;
@@ -153,6 +162,9 @@ li {
 	border-radius: 20px;
 	width: 150px;
 	float: left;
+    border-style: solid;
+    border-color: #0f9940;
+    border-width: 1px;
 
 	transition: color 1s;
     -webkit-transition: color 1s;
@@ -176,6 +188,33 @@ li {
     transition: background-color 1s;
     -webkit-transition: background-color 1s;
     -moz-transition: background-color 1s;
+}
+
+.button-container{
+    text-align: center;
+    padding: 10px;
+    margin: 10px 0 0 0;
+    background-color: #0f9940;
+    border-radius: 20px;
+    width: 150px;
+    float: left;
+    border-style: solid;
+    border-color: #0f9940;
+    border-width: 1px;
+
+
+    transition: color 1s
+    -webkit-transition: color 1s;
+    -moz-transition: color 1s;
+
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
+
+}
+
+.night-day-button{
+
 }
 
 .commentscontainer{
@@ -226,6 +265,14 @@ li {
 
 .nightmode-menu-link{
 	color: rgb(42, 192, 255);
+}
+
+.nightmode-button-container{
+    background-color: black;
+    border-color: rgb(42, 192, 255);
+    border-width: 1px;
+    color: rgb(42, 192, 255);
+
 }
 
 .nightmode-normal-link {

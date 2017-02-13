@@ -10,19 +10,28 @@
 
     <body>
 
-        <ul class = "menu">
-            <li class = "menu-link"><a href = "/">Home</a></li>
-            <li class = "menu-link"><a href = "/zero">Stage 0</a></li>
-            <li class = "menu-link"><a href = "/one">Stage 1</a></li>
-            <li class = "menu-link"><a href = "/two">Stage 2</a></li>
-            <li class = "menu-link"><a href = "/three">Stage 3</a></li>
-            <li class = "menu-link"><a href = "/four">Stage 4</a></li>
-            <li class = "menu-link"><a href = "/five">Stage 5</a></li>
-            <li class = "menu-link"><a href = "/comments">Tell us what you think</a></li>
-        </ul>
+        <div class="left-menu-container">
+            
+
+            <ul class = "menu">
+                <li class = "menu-link"><a href = "/">Home</a></li>
+                <li class = "menu-link"><a href = "/zero">Stage 0</a></li>
+                <li class = "menu-link"><a href = "/one">Stage 1</a></li>
+                <li class = "menu-link"><a href = "/two">Stage 2</a></li>
+                <li class = "menu-link"><a href = "/three">Stage 3</a></li>
+                <li class = "menu-link"><a href = "/four">Stage 4</a></li>
+                <li class = "menu-link"><a href = "/five">Stage 5</a></li>
+                <li class = "menu-link"><a href = "/comments">Tell us what you think</a></li>
+            </ul>
+
+            <div class="button-container">
+                <button class="night-day-button">Night Mode</button>
+            </div>
+        </div>
 
         {% block content %}
         {% endblock %}
+
 
      <script>$("button").on("click", function() {$("body").toggleClass("nightmode-body");});</script>
      <script>$("button").on("click", function() {$("p").toggleClass("nightmode-p");});</script>
@@ -34,6 +43,7 @@
      <script>$("button").on("click", function() {$(".summary").toggleClass("nightmode-summary");});</script>
      <script>$("button").on("click", function() {$(".code").toggleClass("nightmode-code");});</script>
      <script>$("button").on("click", function() {$(".menu-link").toggleClass("nightmode-menu-link");});</script>
+     <script>$("button").on("click", function() {$(".button-container").toggleClass("nightmode-button-container");});</script>
      <script>$("button").on("click", function() {$("a").toggleClass("nightmode-normal-link");});</script>
 
     </body>

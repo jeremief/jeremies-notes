@@ -221,6 +221,10 @@ li {
 	overflow: hidden;
 }
 
+.comment{
+    
+}
+
 .nightmode-body {
 	background-color: black;
 }
@@ -245,6 +249,14 @@ li {
 
 .nightmode-point {
 	color: rgb(42, 192, 255);
+}
+
+.nightmode-intro-text{
+    color: rgb(42, 192, 255);
+}
+
+.nightmode-comment{
+    color: rgb(42, 192, 255);
 }
 
 .nightmode-summary{

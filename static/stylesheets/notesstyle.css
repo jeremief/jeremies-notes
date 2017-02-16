@@ -14,7 +14,7 @@ ul, li, a {
     font: inherit
 }
 
-/*Initioating transtition properties*/
+/*Initiating transtition properties*/
 body, h1, h2, p, li,
 .stage, .intro-text, .topic, .point,
 .summary, .code, .left-menu-container,
@@ -155,70 +155,25 @@ li {
     
 }
 
-.nightmode-body {
-	background-color: black;
-}
-
-
-.nightmode-stage {
-	background-color: black;
-	border-style: solid;
-	border-color: rgb(42, 192, 255);
-	border-width: 1px;
-	color: rgb(42, 192, 255);
-
-}
-
-.nightmode-topic {
-	background-color: black;
-	border-style: solid;
-	border-color: rgb(42, 192, 255);
-	border-width: 1px;
-	color: rgb(42, 192, 255);
-}
-
-.nightmode-point {
-	color: rgb(42, 192, 255);
-}
-
-.nightmode-intro-text{
-    color: rgb(42, 192, 255);
-}
-
-.nightmode-comment{
-    color: rgb(42, 192, 255);
-}
-
-.nightmode-summary{
-	background-color: gray;
-}
-
-.nightmode-code {
-	background-color: gray;
-}
-
-.nightmode-menu{
-	background-color: black;
-	border-style: solid;
-	border-color: rgb(42, 192, 255);
-	border-width: 1px;
-	color: rgb(42, 192, 255);
-}
-
-.nightmode-menu-link{
-	color: rgb(42, 192, 255);
-}
-
-.nightmode-button-container{
+.nightmode-body, .nightmode-stage, .nightmode-topic,
+.nightmode-menu, .nightmode-button-container {
     background-color: black;
+}
+
+.nightmode-summary, .nightmode-code{
+    background-color: gray;
+}
+
+.nightmode-stage, .nightmode-topic, .nightmode-menu,
+.nightmode-button-container {
     border-color: rgb(42, 192, 255);
     border-width: 1px;
-    color: rgb(42, 192, 255);
-
 }
 
+.nightmode-stage, .nightmode-topic, .nightmode-point,
+.nightmode-intro-text, .nightmode-comment, 
+.nightmode-menu, .nightmode-menu-link, .nightmode-button-container,
 .nightmode-normal-link {
-	color: rgb(42, 192, 255);
+    color: rgb(42, 192, 255);
 }
-
 

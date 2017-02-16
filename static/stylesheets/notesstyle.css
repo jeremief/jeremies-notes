@@ -14,17 +14,22 @@ ul, li, a {
     font: inherit
 }
 
-
-body {
-	text-align: justify;
-
-	transition: color 1s;
+/*Initioating transtition properties*/
+body, h1, h2, p, li,
+.stage, .intro-text, .topic, .point,
+.summary, .code, .left-menu-container,
+.menu, .menu-link, .button-container {
+    transition: color 1s;
     -webkit-transition: color 1s;
     -moz-transition: color 1s;
 
     transition: background-color 1s;
     -webkit-transition: background-color 1s;
     -moz-transition: background-color 1s;
+}
+
+body {
+	text-align: justify;
 }
 
 h2 {
@@ -36,14 +41,6 @@ h2 {
 p {
     margin-top: 1em;
     margin-bottom: 1em;
-
-    transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 li {
@@ -62,14 +59,6 @@ li {
     border-style: solid;
     border-color: #0f9940;
     border-width: 1px;
-
-	transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .intro-text{
@@ -92,27 +81,10 @@ li {
     border-style: solid;
     border-color: #52cc7c;
     border-width: 1px;
-
-
-	transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .point{
 	color: black; 
-
-	transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .summary{
@@ -121,14 +93,6 @@ li {
     padding-left: 5px;
 	padding-right: 5px;
 	padding-bottom: 5px;
-
-    transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .code{
@@ -138,14 +102,6 @@ li {
     padding: 2px 4px;
    	font-weight: bold;
     height: 20px;
-
-    transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .left-menu-container{
@@ -165,14 +121,6 @@ li {
     border-style: solid;
     border-color: #0f9940;
     border-width: 1px;
-
-	transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .menu-link{
@@ -180,14 +128,6 @@ li {
     width: 150px;
     padding-left: 0px;
     margin-left: 0px;
-
-    transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
 }
 
 .button-container{
@@ -201,16 +141,6 @@ li {
     border-style: solid;
     border-color: #0f9940;
     border-width: 1px;
-
-
-    transition: color 1s
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
-
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
-
 }
 
 .night-day-button{

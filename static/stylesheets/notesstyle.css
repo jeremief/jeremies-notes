@@ -110,9 +110,7 @@ li {
 
 .menu{
 	list-style-type: none;
-    margin-top: 0px;
-    margin-right: 10px;
-    margin-left: 0px;
+    margin: 0px 10px 0 10px;
     padding: 10px;
 	background-color: #0f9940;
 	border-radius: 20px;
@@ -133,7 +131,7 @@ li {
 .button-container{
     text-align: center;
     padding: 10px;
-    margin: 10px 0 0 0;
+    margin: 10px 0 0 10px;
     background-color: #0f9940;
     border-radius: 20px;
     width: 150px;
@@ -144,7 +142,12 @@ li {
 }
 
 .night-day-button{
-
+    width: 75%;
+    line-height: 200%;
+    border: none;
+    border-radius: 4px;
+    background-color: #BFBFBF;
+    font-weight: bolder;
 }
 
 .commentscontainer{
@@ -156,7 +159,8 @@ li {
 }
 
 .nightmode-body, .nightmode-stage, .nightmode-topic,
-.nightmode-menu, .nightmode-button-container {
+.nightmode-menu, .nightmode-button-container,
+.nightmode-night-day-button {
     background-color: black;
 }
 
@@ -173,7 +177,8 @@ li {
 .nightmode-stage, .nightmode-topic, .nightmode-point,
 .nightmode-intro-text, .nightmode-comment, 
 .nightmode-menu, .nightmode-menu-link, .nightmode-button-container,
-.nightmode-normal-link {
+.nightmode-normal-link, .nightmode-night-day-button {
     color: rgb(42, 192, 255);
 }
+
 

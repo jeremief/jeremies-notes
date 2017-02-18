@@ -29,22 +29,6 @@ def comment_wall_key():
     return ndb.Key('Commentwall', 'commentwall')
 
 
-def swear_check(swear_check_text):
-    """
-    Checking the content of each post for profanity. Alter the post's content
-    if some is found.
-    """
-    connection = urllib.urlopen("http://www.wdyl.com/profanity?q=" +
-                                swear_check_text)
-    output = connection.read()
-    connection.close()
-    if "true" in output:
-        final_text = "I will not write that!"
-    else:
-        final_text = swear_check_text
-    return final_text
-
-
 def curly_cleaner(raw_string):
     """
     Clearing curly brackets and their contents
@@ -336,8 +320,6 @@ class CommentsPage(Handler):
 
         comment.content = self.request.get('content')
         if comment.content != "":
-            swear_check_text = str(comment.content)
-            comment.content = swear_check(swear_check_text)
             comment.put()
             self.redirect('/comments')
         else:

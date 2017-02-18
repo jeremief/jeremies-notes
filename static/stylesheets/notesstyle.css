@@ -57,9 +57,7 @@ li {
 	margin: 10px;
 	padding: 10px;
 	overflow: hidden;
-    border-style: solid;
-    border-color: #0f9940;
-    border-width: 1px;
+    border: 1px solid #0f9940;
 }
 
 .intro-text{
@@ -75,25 +73,19 @@ li {
 	font-family: arial;
 	font-size: 15px;
     margin: 10px 0 10px 0;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-bottom: 5px;
-	color: black;
-    border-style: solid;
-    border-color: #52cc7c;
-    border-width: 1px;
+    padding: 0 5px 5px 5px;
+    color: black;
+    border: 1px solid #52cc7c; 
 }
 
 .point{
-	color: black; 
+    color: black; 
 }
 
 .summary{
     background-color: white;
     border-radius: 5px;
-    padding-left: 5px;
-	padding-right: 5px;
-	padding-bottom: 5px;
+    padding: 0 5px 5px 5px;
 }
 
 .code{
@@ -117,16 +109,13 @@ li {
 	border-radius: 20px;
 	width: 150px;
 	float: left;
-    border-style: solid;
-    border-color: #0f9940;
-    border-width: 1px;
+    border: 1px solid #0f9940; 
 }
 
 .menu-link{
     display: block;
-    width: 150px;
-    padding-left: 0px;
-    margin-left: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .button-container{
@@ -134,20 +123,17 @@ li {
     padding: 10px;
     margin: 10px 0 0 10px;
     background-color: #0f9940;
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
     border-radius: 20px;
     width: 150px;
     float: left;
-    border-style: solid;
-    border-color: #0f9940;
-    border-width: 1px;
-}
-.night-day-button:hover{
-    background-color: red;
+    border: 1px solid #0f9940; 
 }
 
 .night-day-button{
     width: 75%;
-    line-height: 200%;
+    line-height: 150%;
     border: none;
     border-radius: 4px;
     background-color: #BFBFBF;
@@ -158,13 +144,10 @@ li {
 	overflow: hidden;
 }
 
-.comment{
-    
-}
-
 .nightmode-body, .nightmode-stage, .nightmode-topic,
 .nightmode-menu, .nightmode-button-container,
-.nightmode-night-day-button, .night-day-button:hover {
+.nightmode-night-day-button, .nightmode-text-container, 
+.night-day-button:hover {
     background-color: black;
 }
 
@@ -173,18 +156,17 @@ li {
 }
 
 .nightmode-stage, .nightmode-topic, .nightmode-menu,
-.nightmode-button-container, .nightmode-night-day-button {
-    border-style: solid;
-    border-color: rgb(42, 192, 255);
-    border-width: 1px;
+.nightmode-button-container, .nightmode-text-container,  
+.nightmode-night-day-button {
+    border: 1px solid #33ccff;
 }
 
 .nightmode-stage, .nightmode-topic, .nightmode-point,
 .nightmode-intro-text, .nightmode-comment, 
 .nightmode-menu, .nightmode-menu-link, .nightmode-button-container,
 .nightmode-normal-link, .nightmode-night-day-button,
-.night-day-button:hover {
-    color: rgb(42, 192, 255);
+.nightmode-text-container, .night-day-button:hover {
+    color: #33ccff;
 }
 
 

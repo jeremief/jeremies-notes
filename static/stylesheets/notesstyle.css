@@ -16,27 +16,35 @@ ul, li, a {
 
 /*Initiating transtition properties*/
 body, h1, h2, p, li,
-.stage, .intro-text, .topic, .point,
+.stage, .intro-text, .topic,
 .summary, .code, .left-menu-container,
 .menu, .menu-link, .button-container,
 .night-day-button {
-    transition: color 1s;
-    -webkit-transition: color 1s;
-    -moz-transition: color 1s;
+    transition: color 1s ease-in-out;
+    -webkit-transition: color 1s ease-in-out;
+    -moz-transition: color 1s ease-in-out;
+    -ms-transition: color 1s ease-in-out;
+    -o-transition: color 1s ease-in-out;
 
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
+    transition: background-color 1s ease-in-out;
+    -webkit-transition: background-color 1s ease-in-out;
+    -moz-transition: background-color 1s ease-in-out;
+    -ms-transition: background-color 1s ease-in-out;
+    -o-transition: background-color 1s ease-in-out;
 }
 
-body {
+html {
+    font-size: 16px;
+    width: 90%;
+    margin: 0 auto;
 	text-align: justify;
+    /*padding: 5px;*/
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 1.25em; /* 20px */
     font-weight: bold;
-    padding: 5px 0 10px 0;
+    padding: 5px 0;
 }
 
 p {
@@ -48,47 +56,40 @@ li {
     margin-left: 30px;
 }
 
-.stage {
+.stage, .intro-text {
 	color: white; 
 	font-family: cursive;
-    font-size: 26px;
+    font-size: 1.625em; /* 26px */
 	background-color: #0f9940;
-	border-radius: 20px;
+    border-radius: 20px;
 	margin: 10px;
 	padding: 10px;
 	overflow: hidden;
     border: 1px solid #0f9940;
 }
 
-.intro-text{
-    color: white;
-    font-family: cursive;
-    font-size: 16px;
-    margin: 5px;
+.intro-text {
+    font-size: 0.615384em; /* 16px */
 }
 
-.topic{
+.topic {
 	background-color: #52cc7c;
 	border-radius: 5px;
 	font-family: arial;
-	font-size: 15px;
-    margin: 10px 0 10px 0;
-    padding: 0 5px 5px 5px;
+	font-size: 15px;  /* 15px */
+    margin: 10px 0;
+    padding: 5px;
     color: black;
     border: 1px solid #52cc7c; 
 }
 
-.point{
-    color: black; 
-}
-
-.summary{
+.summary {
     background-color: white;
     border-radius: 5px;
-    padding: 0 5px 5px 5px;
+    padding: 5px;
 }
 
-.code{
+.code {
 	display: inline-block;
 	font-family: Courier;
     background-color: white;
@@ -97,51 +98,42 @@ li {
     height: 20px;
 }
 
-.left-menu-container{
+.left-menu-container {
     width: 150px;
 }
 
-.menu{
-	list-style-type: none;
-    margin: 0px 10px 0 10px;
-    padding: 10px;
-	background-color: #0f9940;
-	border-radius: 20px;
-	width: 150px;
-	float: left;
+.menu, .button-container {
+    background-color: #0f9940;
+    border-radius: 20px;
+    width: 150px;
+    float: left;
     border: 1px solid #0f9940; 
+    padding: 10px;
 }
 
-.menu-link{
+.menu {
+    list-style-type: none;
+    margin: 0px 10px;
+}
+
+.button-container {
+    text-align: center;
+    margin: 10px 0 0 10px;
+}
+
+.menu-link {
     display: block;
     padding: 0px;
     margin: 0px;
 }
 
-.button-container{
-    text-align: center;
-    padding: 10px;
-    margin: 10px 0 0 10px;
-    background-color: #0f9940;
-    /*border-style: solid;*/
-    /*border-width: 1px;*/
-    border-radius: 20px;
-    width: 150px;
-    float: left;
-    border: 1px solid #0f9940; 
-}
-
-.night-day-button{
+.night-day-button {
     width: 75%;
     line-height: 150%;
     border: none;
     border-radius: 4px;
     background-color: #BFBFBF;
     font-weight: bolder;
-}
-
-.commentscontainer{
-	overflow: hidden;
 }
 
 .nightmode-body, .nightmode-stage, .nightmode-topic,
@@ -151,17 +143,16 @@ li {
     background-color: black;
 }
 
-.nightmode-summary, .nightmode-code{
+.nightmode-summary, .nightmode-code {
     background-color: gray;
 }
 
 .nightmode-stage, .nightmode-topic, .nightmode-menu,
-.nightmode-button-container, .nightmode-text-container,  
-.nightmode-night-day-button {
+.nightmode-button-container, .nightmode-text-container {
     border: 1px solid #33ccff;
 }
 
-.nightmode-stage, .nightmode-topic, .nightmode-point,
+.nightmode-stage, .nightmode-topic, 
 .nightmode-intro-text, .nightmode-comment, 
 .nightmode-menu, .nightmode-menu-link, .nightmode-button-container,
 .nightmode-normal-link, .nightmode-night-day-button,

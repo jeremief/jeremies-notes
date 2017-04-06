@@ -70,6 +70,7 @@ li {
 
 .intro-text {
     font-size: 0.615384em; /* 16px */
+    border: none;
 }
 
 .topic {
@@ -136,7 +137,7 @@ li {
     font-weight: bolder;
 }
 
-.nightmode-body, .nightmode-stage, .nightmode-topic,
+.nightmode-intro-text, .nightmode-body, .nightmode-stage, .nightmode-topic,
 .nightmode-menu, .nightmode-button-container,
 .nightmode-night-day-button, .nightmode-text-container, 
 .night-day-button:hover {

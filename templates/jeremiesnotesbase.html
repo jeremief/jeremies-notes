@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/static/stylesheets/notesstyle.css">
         <meta charset="UTF-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="/static/scripts/script.js"></script>
     </head>
 
     <body>
@@ -25,30 +26,13 @@
             </ul>
 
             <div class="button-container">
-                <button class="night-day-button">Night Mode</button>
+                <button class="night-day-button" onclick="nightmode()">Night Mode</button>
             </div>
         </div>
 
         {% block content %}
         {% endblock %}
 
-
-     <script>$("button").on("click", function() {$("body").toggleClass("nightmode-body");});
-     $("button").on("click", function() {$("p").toggleClass("nightmode-p");});
-      $("button").on("click", function() {$("h2").toggleClass("nightmode-h2");});
-     $("button").on("click", function() {$(".stage").toggleClass("nightmode-stage");});
-     $("button").on("click", function() {$(".topic").toggleClass("nightmode-topic");});
-     $("button").on("click", function() {$(".menu").toggleClass("nightmode-menu");});
-     $("button").on("click", function() {$(".point").toggleClass("nightmode-point");});
-     $("button").on("click", function() {$(".intro-text").toggleClass("nightmode-intro-text");});
-     $("button").on("click", function() {$(".summary").toggleClass("nightmode-summary");});
-     $("button").on("click", function() {$(".code").toggleClass("nightmode-code");});
-     $("button").on("click", function() {$(".comment").toggleClass("nightmode-comment");});
-     $("button").on("click", function() {$(".text-container").toggleClass("nightmode-text-container");});
-     $("button").on("click", function() {$(".menu-link").toggleClass("nightmode-menu-link");});
-     $("button").on("click", function() {$(".button-container").toggleClass("nightmode-button-container");});
-     $("button").on("click", function() {$(".night-day-button").toggleClass("nightmode-night-day-button");});
-     $("button").on("click", function() {$("a").toggleClass("nightmode-normal-link");});</script>
 
     </body>
 </html>

@@ -1,6 +1,6 @@
 indexes:
 
-  - kind: Comment
+- kind: Comment
   ancestor: yes
   properties:
   - name: content

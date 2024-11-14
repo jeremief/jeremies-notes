@@ -1,340 +1,178 @@
-import cgi
-from urllib import request
-
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from google.cloud import ndb
-
 import os
-import jinja2
-from flask import Flask
-from flask.views import MethodView
-import html
-
-# Set up jinja environment
-
-template_dir = os.path.join(os.path.dirname(__file__), "templates")
-jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
-                               autoescape=True)
-
-# Initialize the client properly for GAE
-client = ndb.Client()
-
-
-def summary_key():
-    """
-    Creating a key of the summary for the Google Datastore.
-    """
-    return ndb.Key('Summary', 'summary')
-
-
-def comment_wall_key():
-    """
-    Creating a key for the Google Datastore.
-    """
-    return ndb.Key('Commentwall', 'commentwall')
-
-
-def curly_cleaner(raw_string):
-    """
-    Clearing curly brackets and their contents
-    """
-    end_flag = False
-    while raw_string.find('{{') != -1 and end_flag is False:
-        start_curly = raw_string.find('{{')
-        if raw_string.find('}}', start_curly) != -1:
-            end_curly = raw_string.find('}}', start_curly) + 2
-            raw_string = raw_string[:start_curly] + raw_string[end_curly:]
-        else:
-            end_flag = True
-    return raw_string
-
-
-def ref_cleaner(raw_string):
-    """
-    Clearing reference tags and their contents
-    """
-    end_flag = False
-    while raw_string.find('<ref') != -1 and end_flag is False:
-        start_ref = raw_string.find('<ref')
-        if raw_string.find('</ref>', start_ref) != -1:
-            end_ref = raw_string.find('</ref>', start_ref) + 6
-            raw_string = raw_string[:start_ref] + raw_string[end_ref:]
-        else:
-            end_flag = True
-    return raw_string
-
-
-def pipe_cleaner(raw_string):
-    """
-    Removing pipes and the contents to their left
-    """
-    end_flag = False
-    while raw_string.find('|') != -1 and end_flag is False:
-        pipe = raw_string.find('|')
-        begining_word = raw_string.rfind('[', 0, pipe)
-        raw_string = raw_string[:begining_word + 1] + raw_string[pipe + 1:]
-    return raw_string
-
-
-def square_cleaner(raw_string):
-    """
-    Clearing square brackets
-    """
-    end_flag = False
-    while raw_string.find('[[') != -1 and end_flag is False:
-        start_square = raw_string.find('[[')
-        if raw_string.find(']]', start_square) != -1:
-            end_square = raw_string.find(']]', start_square)
-            raw_string = raw_string[:start_square] + \
-                raw_string[start_square + 2:
-                           end_square] + raw_string[end_square + 2:]
-        else:
-            end_flag = True
-    return raw_string
-
-
-def note_cleaner(raw_string):
-    """
-    Clearing note tags and their contents
-    """
-    end_flag = False
-    while raw_string.find('<!--') != -1 and end_flag is False:
-        start_note = raw_string.find('<!--')
-        if raw_string.find('-->', start_note) != -1:
-            end_note = raw_string.find('-->', start_note) + 3
-            raw_string = raw_string[:start_note] + raw_string[end_note:]
-        else:
-            end_flag = True
-    return raw_string
-
-
-def various_cleaner(raw_string):
-    """
-    Clearing various characters left after various cleanups
-    """
-    raw_string = raw_string.replace('&nbsp;', ' ')
-    raw_string = raw_string.replace('(; ', '(')
-    raw_string = raw_string.replace('(; ; ', '(')
-    return raw_string
-
-
-def text_cleaner(raw_text):
-    curly_cleaned_text = curly_cleaner(raw_text)
-    ref_cleaned_text = ref_cleaner(curly_cleaned_text)
-    pipe_cleaned_text = pipe_cleaner(ref_cleaned_text)
-    square_cleaned_text = square_cleaner(pipe_cleaned_text)
-    note_cleaned_text = note_cleaner(square_cleaned_text)
-    cleaned_text = various_cleaner(note_cleaned_text)
-    return cleaned_text
-
-
-def escape_comments(comments):
-    escaped_comments = []
-    for comment in comments:
-        comment.content = html.escape(comment.content)
-        escaped_comments.append(comment)
-    return escaped_comments
-
-
-class SummaryClass(ndb.Model):
-    """A model for a Wikipedia summary."""
-    content = ndb.StringProperty()
-    wlink = ndb.StringProperty()
-    time_request = ndb.DateTimeProperty(indexed=True, auto_now_add=True)
-
-
-class Handler(MethodView):
-    def write(self, *a, **kw):
-        self.response.out.write(*a, **kw)
-
-    def render_str(self, template, **params):
-        t = jinja_env.get_template(template)
-        return t.render(params)
-
-    def render(self, template, **kw):
-        self.write(self.render_str(template, **kw))
-
-
-class HomePage(Handler):
-    def get(self):
-        self.render("home.html")
-
-
-class ZeroPage(Handler):
-    def get(self):
-        self.render("stagezero.html")
-
-
-class OnePage(Handler):
-    def get(self):
-        self.render("stageone.html")
-
-
-class TwoPage(Handler):
-    def get(self):
-        self.render("stagetwo.html")
-
-
-class ThreePage(Handler):
-    def get(self):
-        self.render("stagethree.html")
-
-
-class FourPage(Handler):
-    def get(self):
-        self.render("stagefour.html")
-
-
-class FivePage(Handler):
-    def get(self, *summary):
-
-        number_of_summaries_to_fetch = 1
-        summary_query = SummaryClass.query(ancestor=summary_key()).\
-            order(-SummaryClass.time_request)
-        summary_list = summary_query.fetch(number_of_summaries_to_fetch)
-        if summary_list:
-            summary = summary_list[0]
-            summary_content = summary.content
-            summary_link = str(summary.wlink)
-
-            template_values = {'summary': summary_content,
-                               'wlink': summary_link, }
-
-            template = jinja_env.get_template('stagefive.html')
-            self.response.write(template.render(template_values))
-        else:
-            self.render("stagefive.html")
-
-
-class ApiExemple(Handler):
-
-    def post(self):
-
-        num_characters_before_id = 9
-        num_characters_before_redirect = 0
-        redirect_flag = False
-
-        user_entry = self.request.get("article")
-
-        if user_entry != "":
-
-            while redirect_flag is False:
-                # Extract text from URL
-                user_entry = user_entry.title()
-                modified_user_entry = user_entry.replace(" ", "_")
-                # print modified_user_entry
-                url_for_api = ('https://en.wikipedia.org/w/api.php?action=' +
-                               'query&titles=' + modified_user_entry +
-                               '&prop=revisions&rvprop=content&format=json')
-                response = request.urlopen(url_for_api)
-                res = response.read()
-                response.close()
-
-                # Find page ID
-                start_pageid = res.find("pages") + num_characters_before_id
-                end_pageid = res.find('"', start_pageid)
-                page_id = res[start_pageid:end_pageid]
-                page_id = int(page_id)
-
-                if page_id == -1:
-                    # print "No such page"
-                    redirect_flag = True
-                else:
-                    # if there is a REDIRECT, use it as a new user entry
-                    redirect_flag = True
-                    start_redirect = res.find("REDIRECT")
-                    if start_redirect != -1:
-                        first_curly_before_redirect = res.find('[',
-                                                               start_redirect)
-                        num_characters_before_redirect = \
-                            first_curly_before_redirect - start_redirect + 2
-                        end_redirect = res.find(']]', start_redirect)
-                        redirect = res[start_redirect +
-                                       num_characters_before_redirect:
-                                       end_redirect]
-                        user_entry = redirect
-                        redirect_flag = False
-
-        MySummary = SummaryClass(parent=summary_key())
-
-        if user_entry != "":
-
-            if page_id != -1:
-                start_summary = res.find("'''")
-                end_summary = res.find("==")
-
-                if start_summary != -1 and start_summary < end_summary:
-                    raw_summary = res[start_summary:end_summary]
-                    raw_summary = text_cleaner(raw_summary)
-                    MySummary.content = raw_summary
-                    MySummary.wlink = 'http://en.wikipedia.org/?curid=' + \
-                        str(page_id)
-                    MySummary.put()
-                    self.redirect('/five#summary')
-
-                else:
-                    MySummary.content = "Unfortunately, we couldn't generate \
-                    a summary for this page. Please follow the link below to \
-                    find out more."
-                    MySummary.wlink = 'http://en.wikipedia.org/?curid=' + \
-                                      str(page_id)
-                    MySummary.put()
-                    self.redirect('/five#summary')
-
-            else:
-                MySummary.content = "No such page referenced by Wikipedia \
-                or summary is not accessible. Please enter another search."
-                MySummary.wlink = 'None'
-                MySummary.put()
-
-                self.redirect('/five#summary')
-
-        else:
-            MySummary.content = "No search query was entered. Please enter \
-            query in search box"
-            MySummary.wlink = 'None'
-            MySummary.put()
-            self.redirect('five#summary')
-
-
-class Comment(ndb.Model):
-    """A main model for representing an individual comment."""
-    content = ndb.StringProperty()
-    date = ndb.DateTimeProperty(auto_now_add=True)
-
-
-class CommentsPage(Handler):
-    """Keeping comments structure in line with the rest of the pages"""
-    def get(self):
-
-        error = self.request.get('error', '')
-        number_of_records_to_fetch = 20
-
-        comments_query = Comment.query(
-            ancestor=comment_wall_key()).order(-Comment.date)
-        comments = comments_query.fetch(number_of_records_to_fetch)
-
-        escaped_comments = escape_comments(comments)
-
-        self.render("comments.html", mycomments=escaped_comments, error=error)
-
-    def post(self):
-        comment = Comment(parent=comment_wall_key())
-
-        comment.content = self.request.get('content')
-        if comment.content != "":
-            comment.put()
-            self.redirect('/comments')
-        else:
-            self.redirect('/comments?error=No empty comment please')
-
+from datetime import datetime
+import re
+import json
+import urllib.request
+import urllib.parse
+import logging
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
-app.add_url_rule('/', view_func=HomePage.as_view('home'))
-app.add_url_rule('/zero', view_func=ZeroPage.as_view('zero'))
-app.add_url_rule('/one', view_func=OnePage.as_view('one'))
-app.add_url_rule('/two', view_func=TwoPage.as_view('two'))
-app.add_url_rule('/three', view_func=ThreePage.as_view('three'))
-app.add_url_rule('/four', view_func=FourPage.as_view('four'))
-app.add_url_rule('/five', view_func=FivePage.as_view('five'))
-app.add_url_rule('/api', view_func=ApiExemple.as_view('api'))
-app.add_url_rule('/comments', view_func=CommentsPage.as_view('comments'))
+
+# Update the database context handling
+def get_client():
+    try:
+        if os.getenv('GAE_ENV', '').startswith('standard'):
+            return ndb.Client()
+        else:
+            os.environ["DATASTORE_EMULATOR_HOST"] = "localhost:8081"
+            return ndb.Client()
+    except Exception as e:
+        logging.error(f"Failed to create client: {e}")
+        raise
+
+client = get_client()
+
+# Models
+class Comment(ndb.Model):
+    content = ndb.StringProperty(required=True)
+    date = ndb.DateTimeProperty(auto_now_add=True)
+
+class SummaryClass(ndb.Model):
+    time_request = ndb.DateTimeProperty(auto_now_add=True)
+    search = ndb.StringProperty(required=True)
+    summary = ndb.TextProperty(required=True)
+
+# Helper functions
+def comment_wall_key():
+    return ndb.Key('Commentwall', 'commentwall')
+
+def curly_cleaner(text):
+    return re.sub(r'\{.*?\}', '', text)
+
+def ref_cleaner(text):
+    return re.sub(r'\[\d+\]', '', text)
+
+def html_cleaner(text):
+    return re.sub(r'<.*?>', '', text)
+
+def clean_text(text):
+    text = curly_cleaner(text)
+    text = ref_cleaner(text)
+    text = html_cleaner(text)
+    return text
+
+# Routes
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/comments', methods=['GET', 'POST'])
+def comments():
+    try:
+        with client.context():
+            if request.method == 'POST':
+                content = request.form.get('content', '').strip()
+                if not content:
+                    return render_template('comments.html', 
+                                         error="Comment cannot be empty",
+                                         mycomments=[])
+                
+                try:
+                    new_comment = Comment(parent=comment_wall_key(),
+                                        content=content)
+                    new_comment.put()
+                    logging.info("Successfully added comment")
+                except Exception as e:
+                    logging.error(f"Failed to save comment: {e}")
+                    return render_template('comments.html', 
+                                         error="Failed to save comment",
+                                         mycomments=[])
+                
+                return redirect(url_for('comments'))
+            
+            try:
+                query = Comment.query(ancestor=comment_wall_key())
+                comments = query.order(-Comment.date).fetch()
+                logging.info(f"Retrieved {len(comments)} comments")
+                return render_template('comments.html', mycomments=comments)
+            except Exception as e:
+                logging.error(f"Failed to fetch comments: {e}")
+                return render_template('comments.html', 
+                                     error="Failed to load comments",
+                                     mycomments=[])
+    except Exception as e:
+        logging.error(f"Database context error: {e}")
+        return render_template('comments.html', 
+                             error="Database connection error",
+                             mycomments=[])
+
+@app.route('/api', methods=['POST'])
+def api():
+    try:
+        data = request.get_json()
+        search_term = data.get('search', '')
+        
+        if not search_term:
+            return jsonify({'error': 'No search term provided'}), 400
+            
+        with client.context():
+            # Check cache
+            query = SummaryClass.query()
+            query = query.filter(SummaryClass.search == search_term)
+            result = query.get()
+            
+            if result:
+                return jsonify({'summary': result.summary})
+            
+            # If not in cache, fetch from Wikipedia
+            search_term_encoded = urllib.parse.quote(search_term)
+            url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{search_term_encoded}"
+            
+            response = urllib.request.urlopen(url)
+            data = json.loads(response.read())
+            
+            if 'extract' in data:
+                summary = clean_text(data['extract'])
+                
+                # Store in cache
+                new_summary = SummaryClass(
+                    search=search_term,
+                    summary=summary
+                )
+                new_summary.put()
+                
+                return jsonify({'summary': summary})
+            
+            return jsonify({'error': 'No summary found'}), 404
+    except Exception as e:
+        logging.error(f"API error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/zero')
+def zero():
+    return render_template('stagezero.html')
+
+@app.route('/one')
+def one():
+    return render_template('stageone.html')
+
+@app.route('/two')
+def two():
+    return render_template('stagetwo.html')
+
+@app.route('/three')
+def three():
+    return render_template('stagethree.html')
+
+@app.route('/four')
+def four():
+    return render_template('stagefour.html')
+
+@app.route('/five')
+def five():
+    return render_template('stagefive.html')
+
+# Error handlers
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template('500.html'), 500
+
+if __name__ == '__main__':
+    app.run(host='localhost', port=8080, debug=True)

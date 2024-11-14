@@ -17,8 +17,7 @@ The final result is visible [here](https://jeremies-notes.appspot.com/).
 
 3. Issues and known bugs
 -------------------------
-For some reason, searching for "World War II" doesn't return anything...
-Also, sometimes the JSON cleaning function doesn't work properly and the summary contains some leftover html code.
+None at this point in time
 
 
 4. More information

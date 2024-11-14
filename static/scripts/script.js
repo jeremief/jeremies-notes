@@ -19,7 +19,6 @@ function nightmode() {
 }
 
 function searchWikipedia(event) {
-    // Prevent the form from submitting normally
     event.preventDefault();
     
     const searchTerm = document.getElementById('searchInput').value;
@@ -27,11 +26,13 @@ function searchWikipedia(event) {
     
     if (!searchTerm) {
         resultDiv.innerHTML = 'Please enter a search term';
+        resultDiv.classList.add('error');
         return;
     }
 
     // Show loading state
     resultDiv.innerHTML = 'Loading...';
+    resultDiv.classList.remove('error');
 
     fetch('/api', {
         method: 'POST',
@@ -45,13 +46,16 @@ function searchWikipedia(event) {
     .then(data => {
         if (data.error) {
             resultDiv.innerHTML = `Error: ${data.error}`;
+            resultDiv.classList.add('error');
         } else {
             resultDiv.innerHTML = data.summary;
+            resultDiv.classList.remove('error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
         resultDiv.innerHTML = `Error: ${error.message}`;
+        resultDiv.classList.add('error');
     });
 }
 

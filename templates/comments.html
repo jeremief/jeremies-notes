@@ -14,14 +14,17 @@
       <div><input type="submit" value="Post comment"></div>
     </form>
 
-    <h2 style = "color:red;">{{error}}</h2>
-
+    {% if error %}
+        <h2 style="color:red;">{{ error }}</h2>
+    {% endif %}
 
     <hr>
 
     {% for comment in mycomments %}
 
-    <blockquote class="comment">{{comment.content}}</blockquote>
+    <blockquote class="comment">{{comment.content}}
+        <small>Posted on: {{ comment.date.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+    </blockquote>
 
     {% endfor %}
 {% endblock %}

@@ -1,18 +1,22 @@
 import cgi
-import urllib
-import urllib2
+from urllib import request
 
-from google.appengine.ext import ndb
+from google.cloud import ndb
 
 import os
 import jinja2
-import webapp2
+from flask import Flask
+from flask.views import MethodView
+import html
 
 # Set up jinja environment
 
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
                                autoescape=True)
+
+# Initialize the client properly for GAE
+client = ndb.Client()
 
 
 def summary_key():
@@ -120,27 +124,25 @@ def text_cleaner(raw_text):
     square_cleaned_text = square_cleaner(pipe_cleaned_text)
     note_cleaned_text = note_cleaner(square_cleaned_text)
     cleaned_text = various_cleaner(note_cleaned_text)
-    cleaned_text = cleaned_text.decode('unicode-escape')
-    cleaned_text = cleaned_text.encode('utf-8')
     return cleaned_text
 
 
 def escape_comments(comments):
     escaped_comments = []
     for comment in comments:
-        comment.content = cgi.escape(comment.content)
+        comment.content = html.escape(comment.content)
         escaped_comments.append(comment)
     return escaped_comments
 
 
 class SummaryClass(ndb.Model):
     """A model for a Wikipedia summary."""
-    content = ndb.StringProperty(indexed=False)
-    wlink = ndb.StringProperty(indexed=False)
+    content = ndb.StringProperty()
+    wlink = ndb.StringProperty()
     time_request = ndb.DateTimeProperty(indexed=True, auto_now_add=True)
 
 
-class Handler(webapp2.RequestHandler):
+class Handler(MethodView):
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
 
@@ -219,11 +221,11 @@ class ApiExemple(Handler):
                 # Extract text from URL
                 user_entry = user_entry.title()
                 modified_user_entry = user_entry.replace(" ", "_")
-                print modified_user_entry
+                # print modified_user_entry
                 url_for_api = ('https://en.wikipedia.org/w/api.php?action=' +
                                'query&titles=' + modified_user_entry +
                                '&prop=revisions&rvprop=content&format=json')
-                response = urllib2.urlopen(url_for_api)
+                response = request.urlopen(url_for_api)
                 res = response.read()
                 response.close()
 
@@ -296,7 +298,7 @@ class ApiExemple(Handler):
 
 class Comment(ndb.Model):
     """A main model for representing an individual comment."""
-    content = ndb.StringProperty(indexed=False)
+    content = ndb.StringProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 
@@ -326,13 +328,13 @@ class CommentsPage(Handler):
             self.redirect('/comments?error=No empty comment please')
 
 
-app = webapp2.WSGIApplication([('/', HomePage),
-                               ('/zero', ZeroPage),
-                               ('/one', OnePage),
-                               ('/two', TwoPage),
-                               ('/three', ThreePage),
-                               ('/four', FourPage),
-                               ('/five', FivePage),
-                               ('/api', ApiExemple),
-                               ('/comments', CommentsPage)],
-                              debug=True)
+app = Flask(__name__)
+app.add_url_rule('/', view_func=HomePage.as_view('home'))
+app.add_url_rule('/zero', view_func=ZeroPage.as_view('zero'))
+app.add_url_rule('/one', view_func=OnePage.as_view('one'))
+app.add_url_rule('/two', view_func=TwoPage.as_view('two'))
+app.add_url_rule('/three', view_func=ThreePage.as_view('three'))
+app.add_url_rule('/four', view_func=FourPage.as_view('four'))
+app.add_url_rule('/five', view_func=FivePage.as_view('five'))
+app.add_url_rule('/api', view_func=ApiExemple.as_view('api'))
+app.add_url_rule('/comments', view_func=CommentsPage.as_view('comments'))

@@ -9,7 +9,10 @@ import urllib.parse
 import logging
 logging.basicConfig(level=logging.INFO)
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 # Update the database context handling
 def get_client():
@@ -101,6 +104,13 @@ def comments():
 
 @app.route('/api', methods=['POST'])
 def api():
+    # Add debug logging
+    print("Content-Type:", request.headers.get('Content-Type'))
+    print("Request data:", request.get_data())
+    
+    if not request.is_json:
+        return jsonify({"error": "Content-Type must be application/json"}), 415
+        
     try:
         data = request.get_json()
         search_term = data.get('search', '')

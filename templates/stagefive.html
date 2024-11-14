@@ -87,16 +87,11 @@
                 <h3 id = "summary">The Wikipedia API</h3>
                 <p>As far as implementation is concerned, the small form below uses the Wikipedia API to serve the top summary of its article about whichever keyword is entered by the user. It also generates a link to the article if further reading is required.</p>
 
-                <form action = "/api" method = "post">
-                    <input name="article" placeholder="Enter topic...">
-                    <input type="submit"> <br>
-                    <div class="summary">Summary: <br> <p>{{summary}}</p>
-                        <br>
-                        {% if wlink != 'None' %}
-                        <a href='{{wlink}}' target='_blank'>Find out more...</a>
-                        {% endif %}
-                    </div>
+                <form id="searchForm" onsubmit="searchWikipedia(event)">
+                    <input type="text" id="searchInput" placeholder="Enter search term">
+                    <button type="submit">Search</button>
                 </form>
+                <div id="searchResult"></div>
             </div>
 
             <div class = "topic">

@@ -18,3 +18,47 @@ function nightmode() {
     $("a").toggleClass("nightmode-normal-link");
 }
 
+function searchWikipedia(event) {
+    // Prevent the form from submitting normally
+    event.preventDefault();
+    
+    const searchTerm = document.getElementById('searchInput').value;
+    const resultDiv = document.getElementById('searchResult');
+    
+    if (!searchTerm) {
+        resultDiv.innerHTML = 'Please enter a search term';
+        return;
+    }
+
+    // Show loading state
+    resultDiv.innerHTML = 'Loading...';
+
+    fetch('/api', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({ search: searchTerm })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            resultDiv.innerHTML = `Error: ${data.error}`;
+        } else {
+            resultDiv.innerHTML = data.summary;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        resultDiv.innerHTML = `Error: ${error.message}`;
+    });
+}
+
+// Add event listener when the document loads
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('searchForm');
+    if (form) {
+        form.addEventListener('submit', searchWikipedia);
+    }
+});

@@ -22,7 +22,7 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-N4MT7TV');</script>
         <!-- End Google Tag Manager -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="/static/scripts/script.js"></script>
     </head>
 
@@ -47,13 +47,11 @@
             </ul>
 
             <div class="button-container">
-                <button class="night-day-button" onclick="nightmode()">Night Mode</button>
+                <button class="night-day-button">Night Mode</button>
             </div>
         </div>
 
         {% block content %}
         {% endblock %}
-
-
     </body>
 </html>

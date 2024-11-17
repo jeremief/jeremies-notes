@@ -14,7 +14,8 @@ ul, li, a {
     font: inherit
 }
 
-/*Initiating transtition properties*/
+/*
+/*Initiating transtition properties
 body, h1, h2, p, li,
 .stage, .intro-text, .topic,
 .summary, .code, .left-menu-container,
@@ -32,7 +33,7 @@ body, h1, h2, p, li,
     -ms-transition: background-color 1s ease-in-out;
     -o-transition: background-color 1s ease-in-out;
 }
-
+*/
 html {
     font-size: 16px;
     width: 90%;
@@ -176,6 +177,31 @@ li {
     background-color: #fff0f0;
     border-color: #ffcdd2;
     color: #d32f2f;
+}
+
+/*
+/* Add transition classes 
+body, p, h2, .stage, .topic, .menu, .point, .intro-text, 
+.summary, .code, .comment, .text-container, .menu-link, 
+.button-container, .night-day-button, a {
+    transition: background-color 0.3s, color 0.3s;
+}
+*/
+/* Remove transition when prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* Your existing nightmode classes stay the same 
+.nightmode-body { ... }*/
+
+/* Add this new transition class that we'll apply only when clicking the button */
+.use-transition {
+    transition: background-color 0.3s ease-out, 
+                color 0.3s ease-out, 
+                border-color 0.3s ease-out !important;
 }
 
 

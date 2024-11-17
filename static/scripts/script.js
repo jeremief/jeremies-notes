@@ -1,23 +1,93 @@
-function nightmode() {
+// Single initialization when document is ready
+$(document).ready(function() {
+    console.log('Document ready');
+    
+    // Apply night mode immediately if needed
+    const isNightMode = localStorage.getItem('nightMode') === 'true';
+    if (isNightMode) {
+        applyNightMode(false);
+    }
+    
+    // Set up click handler for night mode button
+    $('.night-day-button').on('click', toggleNightMode);
+});
 
-    $("body").toggleClass("nightmode-body");
-    $("p").toggleClass("nightmode-p");
-    $("h2").toggleClass("nightmode-h2");
-    $(".stage").toggleClass("nightmode-stage");
-    $(".topic").toggleClass("nightmode-topic");
-    $(".menu").toggleClass("nightmode-menu");
-    $(".point").toggleClass("nightmode-point");
-    $(".intro-text").toggleClass("nightmode-intro-text");
-    $(".summary").toggleClass("nightmode-summary");
-    $(".code").toggleClass("nightmode-code");
-    $(".comment").toggleClass("nightmode-comment");
-    $(".text-container").toggleClass("nightmode-text-container");
-    $(".menu-link").toggleClass("nightmode-menu-link");
-    $(".button-container").toggleClass("nightmode-button-container");
-    $(".night-day-button").toggleClass("nightmode-night-day-button");
-    $("a").toggleClass("nightmode-normal-link");
+function applyNightMode(withTransition = false) {
+    if (withTransition) {
+        // Add transition class only when toggling via button
+        $('body, p, h2, .stage, .topic, .menu, .point, .intro-text, .summary, .code, .comment, .text-container, .menu-link, .button-container, .night-day-button, a').addClass('use-transition');
+    }
+    
+    // Apply night mode classes
+    $("body").addClass("nightmode-body");
+    $("p").addClass("nightmode-p");
+    $("h2").addClass("nightmode-h2");
+    $(".stage").addClass("nightmode-stage");
+    $(".topic").addClass("nightmode-topic");
+    $(".menu").addClass("nightmode-menu");
+    $(".point").addClass("nightmode-point");
+    $(".intro-text").addClass("nightmode-intro-text");
+    $(".summary").addClass("nightmode-summary");
+    $(".code").addClass("nightmode-code");
+    $(".comment").addClass("nightmode-comment");
+    $(".text-container").addClass("nightmode-text-container");
+    $(".menu-link").addClass("nightmode-menu-link");
+    $(".button-container").addClass("nightmode-button-container");
+    $(".night-day-button").addClass("nightmode-night-day-button");
+    $("a").addClass("nightmode-normal-link");
+    
+    if (withTransition) {
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            $('body, p, h2, .stage, .topic, .menu, .point, .intro-text, .summary, .code, .comment, .text-container, .menu-link, .button-container, .night-day-button, a').removeClass('use-transition');
+        }, 300);
+    }
 }
 
+function removeNightMode(withTransition = false) {
+    if (withTransition) {
+        // Add transition class to elements that need it
+        $('body, p, h2, .stage, .topic, .menu, .point, .intro-text, .summary, .code, .comment, .text-container, .menu-link, .button-container, .night-day-button, a').addClass('use-transition');
+    }
+    
+    // Remove night mode classes
+    $("body").removeClass("nightmode-body");
+    $("p").removeClass("nightmode-p");
+    $("h2").removeClass("nightmode-h2");
+    $(".stage").removeClass("nightmode-stage");
+    $(".topic").removeClass("nightmode-topic");
+    $(".menu").removeClass("nightmode-menu");
+    $(".point").removeClass("nightmode-point");
+    $(".intro-text").removeClass("nightmode-intro-text");
+    $(".summary").removeClass("nightmode-summary");
+    $(".code").removeClass("nightmode-code");
+    $(".comment").removeClass("nightmode-comment");
+    $(".text-container").removeClass("nightmode-text-container");
+    $(".menu-link").removeClass("nightmode-menu-link");
+    $(".button-container").removeClass("nightmode-button-container");
+    $(".night-day-button").removeClass("nightmode-night-day-button");
+    $("a").removeClass("nightmode-normal-link");
+    
+    if (withTransition) {
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            $('body, p, h2, .stage, .topic, .menu, .point, .intro-text, .summary, .code, .comment, .text-container, .menu-link, .button-container, .night-day-button, a').removeClass('use-transition');
+        }, 300);
+    }
+}
+
+function toggleNightMode() {
+    const isCurrentlyNightMode = $("body").hasClass("nightmode-body");
+    console.log('Current night mode:', isCurrentlyNightMode);
+
+    if (isCurrentlyNightMode) {
+        removeNightMode(true);  // true enables transition
+        localStorage.setItem('nightMode', 'false');
+    } else {
+        applyNightMode(true);   // true enables transition
+        localStorage.setItem('nightMode', 'true');
+    }
+}
 function searchWikipedia(event) {
     event.preventDefault();
     

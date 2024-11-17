@@ -7,12 +7,38 @@ import json
 import urllib.request
 import urllib.parse
 import logging
-logging.basicConfig(level=logging.INFO)
+from markupsafe import escape
+from flask_talisman import Talisman
+from werkzeug.middleware.proxy_fix import ProxyFix
+import bleach
 
+logging.basicConfig(level=logging.INFO)
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+# Security headers configuration
+csp = {
+    'default-src': "'self'",
+    'script-src': ["'self'", "'unsafe-inline'", 
+                   "https://code.jquery.com",
+                   "https://www.googletagmanager.com"],
+    'style-src': ["'self'", "'unsafe-inline'"],
+    'img-src': ["'self'", "data:", "https:"],
+    'connect-src': ["'self'", "https://en.wikipedia.org"]
+}
+
+# Initialize Talisman
+Talisman(app,
+         content_security_policy=csp,
+         force_https=True,
+         strict_transport_security=True,
+         session_cookie_secure=True,
+         session_cookie_http_only=True)
+
+# Use ProxyFix to handle proxy headers
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 # Update the database context handling
 def get_client():
@@ -52,6 +78,8 @@ def html_cleaner(text):
     return re.sub(r'<.*?>', '', text)
 
 def clean_text(text):
+    # Sanitize HTML and potentially dangerous content
+    text = bleach.clean(text, strip=True)
     text = curly_cleaner(text)
     text = ref_cleaner(text)
     text = html_cleaner(text)
@@ -67,15 +95,22 @@ def comments():
     try:
         with client.context():
             if request.method == 'POST':
-                content = request.form.get('content', '').strip()
+                # Sanitize and validate input
+                content = bleach.clean(request.form.get('content', '').strip())
                 if not content:
                     return render_template('comments.html', 
                                          error="Comment cannot be empty",
                                          mycomments=[])
                 
+                # Validate content length
+                if len(content) > 1000:  # Example limit
+                    return render_template('comments.html', 
+                                         error="Comment too long",
+                                         mycomments=[])
+                
                 try:
                     new_comment = Comment(parent=comment_wall_key(),
-                                        content=content)
+                                        content=escape(content))  # Escape content
                     new_comment.put()
                     logging.info("Successfully added comment")
                 except Exception as e:
@@ -86,11 +121,17 @@ def comments():
                 
                 return redirect(url_for('comments'))
             
+            # Fetch and escape comments for display
             try:
                 query = Comment.query(ancestor=comment_wall_key())
                 comments = query.order(-Comment.date).fetch()
+                # Escape comment content before rendering
+                escaped_comments = [
+                    {'content': escape(c.content), 'date': c.date} 
+                    for c in comments
+                ]
                 logging.info(f"Retrieved {len(comments)} comments")
-                return render_template('comments.html', mycomments=comments)
+                return render_template('comments.html', mycomments=escaped_comments)
             except Exception as e:
                 logging.error(f"Failed to fetch comments: {e}")
                 return render_template('comments.html', 
@@ -104,52 +145,53 @@ def comments():
 
 @app.route('/api', methods=['POST'])
 def api():
-    # Add debug logging
-    print("Content-Type:", request.headers.get('Content-Type'))
-    print("Request data:", request.get_data())
-    
     if not request.is_json:
         return jsonify({"error": "Content-Type must be application/json"}), 415
         
     try:
         data = request.get_json()
-        search_term = data.get('search', '')
+        search_term = bleach.clean(data.get('search', ''))
         
-        if not search_term:
-            return jsonify({'error': 'No search term provided'}), 400
+        # Validate search term
+        if not search_term or len(search_term) > 100:  # Example limit
+            return jsonify({'error': 'Invalid search term'}), 400
             
         with client.context():
-            # Check cache
+            # Check cache with sanitized search term
             query = SummaryClass.query()
             query = query.filter(SummaryClass.search == search_term)
             result = query.get()
             
             if result:
-                return jsonify({'summary': result.summary})
+                return jsonify({'summary': escape(result.summary)})
             
-            # If not in cache, fetch from Wikipedia
+            # Fetch from Wikipedia with sanitized term
             search_term_encoded = urllib.parse.quote(search_term)
             url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{search_term_encoded}"
             
-            response = urllib.request.urlopen(url)
+            # Add timeout to prevent hanging
+            response = urllib.request.urlopen(url, timeout=5)
             data = json.loads(response.read())
             
             if 'extract' in data:
                 summary = clean_text(data['extract'])
                 
-                # Store in cache
+                # Store sanitized summary in cache
                 new_summary = SummaryClass(
                     search=search_term,
-                    summary=summary
+                    summary=escape(summary)
                 )
                 new_summary.put()
                 
                 return jsonify({'summary': summary})
             
             return jsonify({'error': 'No summary found'}), 404
+    except urllib.error.URLError as e:
+        logging.error(f"Wikipedia API error: {e}")
+        return jsonify({'error': 'Failed to fetch data'}), 503
     except Exception as e:
         logging.error(f"API error: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/zero')
 def zero():
@@ -184,5 +226,15 @@ def page_not_found(e):
 def server_error(e):
     return render_template('500.html'), 500
 
+# Add security headers to all responses
+@app.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    return response
+
 if __name__ == '__main__':
-    app.run(host='localhost', port=8080, debug=True)
+    # Only use debug mode in development
+    debug_mode = not os.getenv('GAE_ENV', '').startswith('standard')
+    app.run(host='localhost', port=8080, debug=debug_mode)

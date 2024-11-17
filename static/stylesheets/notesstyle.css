@@ -1,105 +1,35 @@
-/*Resetting boxes*/
-html, body, h1, h2, h3,
-p, ol, ul, li, a {
+/* Reset Styles */
+html, body, h1, h2, h3, p, ol, ul, li, a {
     padding: 0;
     border: 0;
     margin: 0;
-}
-
-/*Resetting fonts*/
-html, body, h1,
-h2, h3, p, ol,
-ul, li, a {
     font-size: 100%;
-    font: inherit
+    font: inherit;
 }
 
-/*
-/*Initiating transtition properties
-body, h1, h2, p, li,
-.stage, .intro-text, .topic,
-.summary, .code, .left-menu-container,
-.menu, .menu-link, .button-container,
-.night-day-button {
-    transition: color 1s ease-in-out;
-    -webkit-transition: color 1s ease-in-out;
-    -moz-transition: color 1s ease-in-out;
-    -ms-transition: color 1s ease-in-out;
-    -o-transition: color 1s ease-in-out;
-
-    transition: background-color 1s ease-in-out;
-    -webkit-transition: background-color 1s ease-in-out;
-    -moz-transition: background-color 1s ease-in-out;
-    -ms-transition: background-color 1s ease-in-out;
-    -o-transition: background-color 1s ease-in-out;
-}
-*/
+/* Base Styles */
 html {
     font-size: 16px;
     width: 90%;
     margin: 0 auto;
-	text-align: justify;
-    /*padding: 5px;*/
+    text-align: justify;
 }
 
 h2 {
-    font-size: 1.25em; /* 20px */
+    font-size: 1.25em;
     font-weight: bold;
     padding: 5px 0;
 }
 
 p {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: 1em 0;
 }
 
 li {
     margin-left: 30px;
 }
 
-.stage {
-	color: white; 
-	font-family: cursive;
-    font-size: 1.625em; /* 26px */
-	background-color: #0f9940;
-    border-radius: 20px;
-	margin: 10px;
-	padding: 10px;
-	overflow: hidden;
-    border: 1px solid #0f9940;
-}
-
-.intro-text {
-    font-size: 0.615384em; /* 16px */
-    border: none;
-}
-
-.topic {
-	background-color: #52cc7c;
-	border-radius: 5px;
-	font-family: arial;
-	font-size: 15px;  /* 15px */
-    margin: 10px 0;
-    padding: 5px;
-    color: black;
-    border: 1px solid #52cc7c; 
-}
-
-.summary {
-    background-color: white;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.code {
-	display: inline-block;
-	font-family: Courier;
-    background-color: white;
-    padding: 2px 4px;
-   	font-weight: bold;
-    height: 20px;
-}
-
+/* Layout Components */
 .left-menu-container {
     width: 150px;
 }
@@ -118,15 +48,60 @@ li {
     margin: 0px 10px;
 }
 
+.menu-link {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+/* Content Sections */
+.stage {
+    color: white; 
+    font-family: cursive;
+    font-size: 1.625em;
+    background-color: #0f9940;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #0f9940;
+}
+
+.topic {
+    background-color: #52cc7c;
+    border-radius: 5px;
+    font-family: arial;
+    font-size: 15px;
+    margin: 10px 0;
+    padding: 5px;
+    color: black;
+    border: 1px solid #52cc7c; 
+}
+
+.intro-text {
+    font-size: 0.615384em;
+    border: none;
+}
+
+.summary {
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.code {
+    display: inline-block;
+    font-family: Courier;
+    background-color: white;
+    padding: 2px 4px;
+    font-weight: bold;
+    height: 20px;
+}
+
+/* Button Styles */
 .button-container {
     text-align: center;
     margin: 10px 0 0 10px;
-}
-
-.menu-link {
-    display: block;
-    padding: 0px;
-    margin: 0px;
 }
 
 .night-day-button {
@@ -138,8 +113,9 @@ li {
     font-weight: bolder;
 }
 
-.nightmode-intro-text, .nightmode-body, .nightmode-stage, .nightmode-topic,
-.nightmode-menu, .nightmode-button-container,
+/* Night Mode Styles */
+.nightmode-intro-text, .nightmode-body, .nightmode-stage, 
+.nightmode-topic, .nightmode-menu, .nightmode-button-container,
 .nightmode-night-day-button, .nightmode-text-container, 
 .night-day-button:hover {
     background-color: black;
@@ -154,14 +130,15 @@ li {
     border: 1px solid #33ccff;
 }
 
-.nightmode-stage, .nightmode-topic, 
-.nightmode-intro-text, .nightmode-comment, 
-.nightmode-menu, .nightmode-menu-link, .nightmode-button-container,
-.nightmode-normal-link, .nightmode-night-day-button,
-.nightmode-text-container, .night-day-button:hover {
+.nightmode-stage, .nightmode-topic, .nightmode-intro-text, 
+.nightmode-comment, .nightmode-menu, .nightmode-menu-link, 
+.nightmode-button-container, .nightmode-normal-link, 
+.nightmode-night-day-button, .nightmode-text-container, 
+.night-day-button:hover {
     color: #33ccff;
 }
 
+/* API Response Styles */
 .api-response {
     background-color: #f5f5f5;
     border-radius: 5px;
@@ -173,35 +150,30 @@ li {
     color: black !important;
 }
 
-/* Style for error messages */
 .api-response.error {
     background-color: #fff0f0;
     border-color: #ffcdd2;
     color: #d32f2f !important;
 }
 
-/* Optional: If you want to style the API response differently in night mode */
 .nightmode-body .api-response {
     background-color: #f5f5f5;
     border-color: #33ccff;
     color: black !important;
 }
 
-/* Remove transition when prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        transition: none !important;
-    }
-}
-
-/* Your existing nightmode classes stay the same 
-.nightmode-body { ... }*/
-
-/* Add this new transition class that we'll apply only when clicking the button */
+/* Transitions */
 .use-transition {
     transition: background-color 0.3s ease-out, 
                 color 0.3s ease-out, 
                 border-color 0.3s ease-out !important;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
 }
 
 

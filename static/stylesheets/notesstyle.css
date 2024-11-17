@@ -170,23 +170,23 @@ li {
     border: 1px solid #ddd;
     line-height: 1.5;
     max-width: 800px;
+    color: black !important;
 }
 
 /* Style for error messages */
 .api-response.error {
     background-color: #fff0f0;
     border-color: #ffcdd2;
-    color: #d32f2f;
+    color: #d32f2f !important;
 }
 
-/*
-/* Add transition classes 
-body, p, h2, .stage, .topic, .menu, .point, .intro-text, 
-.summary, .code, .comment, .text-container, .menu-link, 
-.button-container, .night-day-button, a {
-    transition: background-color 0.3s, color 0.3s;
+/* Optional: If you want to style the API response differently in night mode */
+.nightmode-body .api-response {
+    background-color: #f5f5f5;
+    border-color: #33ccff;
+    color: black !important;
 }
-*/
+
 /* Remove transition when prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
     * {

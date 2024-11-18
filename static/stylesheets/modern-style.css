@@ -1,0 +1,258 @@
+/* Modern Theme Variables */
+:root {
+  --primary-color: #ff6b6b;
+  --secondary-color: #4ecdc4;
+  --accent-color: #ffe66d;
+  --dark-bg: #1c1c1e;
+  --light-bg: #f5f5f7;
+  --text-light: #f5f5f7;
+  --text-dark: #1c1c1e;
+}
+
+/* Modern Theme Base Styles */
+body.modern-theme {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--dark-bg);
+  color: #e1e1e6;
+  line-height: 1.6;
+}
+
+/* Modern Left Menu */
+.modern-theme .left-menu-container {
+  width: 250px;
+  position: fixed;
+  height: 100vh;
+  background: var(--dark-bg);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+}
+
+.modern-theme .menu {
+  background: none;
+  border: none;
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
+}
+
+.modern-theme .menu-link {
+  margin: 8px 0;
+}
+
+.modern-theme .menu-link a {
+  color: var(--text-light);
+  text-decoration: none;
+  padding: 12px 20px;
+  display: block;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.modern-theme .menu-link a:hover {
+  background: var(--primary-color);
+  transform: translateX(5px);
+}
+
+/* Modern Content Styles */
+.modern-theme .stage {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e1e1e6;
+  font-family: inherit;
+  margin-left: 270px;
+  margin-right: 20px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.modern-theme .topic {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  transition: transform 0.3s;
+  color: #e1e1e6;
+}
+
+.modern-theme .topic:hover {
+  transform: translateY(-2px);
+}
+
+/* Modern Button Styles */
+.modern-theme .button-container {
+  background: none;
+  border: none;
+  padding: 20px 0;
+}
+
+.modern-theme .night-day-button,
+.modern-theme .theme-toggle-button {
+  background: var(--primary-color);
+  color: var(--text-light);
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 5px 0;
+  width: 100%;
+  font-weight: 500;
+}
+
+.modern-theme .night-day-button:hover,
+.modern-theme .theme-toggle-button:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Modern Code Blocks */
+.modern-theme .code {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: 'Fira Code', monospace;
+  color: var(--accent-color);
+}
+
+/* Modern Summary Sections */
+.modern-theme .summary {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Night Mode Adaptations for Modern Theme */
+.modern-theme.nightmode-body {
+  background-color: #000;
+}
+
+.modern-theme .nightmode-stage {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: var(--primary-color);
+}
+
+.modern-theme .nightmode-topic {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: var(--secondary-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modern-theme .stage {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-theme .left-menu-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .modern-theme .stage {
+    margin-left: 20px;
+  }
+}
+
+/* Modern Theme Link Styles */
+.modern-theme a {
+    color: var(--secondary-color); /* Using the teal color (#4ecdc4) */
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.modern-theme a:hover {
+    color: var(--accent-color); /* Using the yellow color (#ffe66d) */
+}
+
+/* Optional: Add an underline effect on hover */
+.modern-theme a:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s;
+}
+
+.modern-theme a:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Specific styles for menu links to prevent underline effect */
+.modern-theme .menu-link a:after {
+    display: none;
+}
+
+/* Make headings stand out more */
+.modern-theme h1, 
+.modern-theme h2, 
+.modern-theme h3 {
+    color: #ffffff; /* Pure white for headings */
+}
+
+/* Regular text in content areas */
+.modern-theme p, 
+.modern-theme li, 
+.modern-theme .summary {
+    color: #e1e1e6;
+}
+
+/* Links - using previous suggestion */
+.modern-theme a {
+    color: var(--secondary-color);
+}
+
+/* Code snippets */
+.modern-theme .code {
+    color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Optional: Add emphasis to important text */
+.modern-theme strong, 
+.modern-theme b {
+    color: #ffffff;
+}
+
+/* Modern Theme with Night Mode */
+.modern-theme.nightmode-body,
+.modern-theme.nightmode-body .stage,
+.modern-theme.nightmode-body .topic,
+.modern-theme.nightmode-body p,
+.modern-theme.nightmode-body li,
+.modern-theme.nightmode-body h1,
+.modern-theme.nightmode-body h2,
+.modern-theme.nightmode-body h3,
+.modern-theme.nightmode-body .summary {
+    color: var(--secondary-color);
+}
+
+/* Keep links distinguishable even in night mode */
+.modern-theme.nightmode-body a {
+    color: var(--primary-color);
+}
+
+.modern-theme.nightmode-body a:hover {
+    color: var(--accent-color);
+}
+
+/* Code blocks in night mode */
+.modern-theme.nightmode-body .code {
+    background: rgba(0, 0, 0, 0.3);
+    color: #50fa7b; /* Keep code blocks distinct */
+} 

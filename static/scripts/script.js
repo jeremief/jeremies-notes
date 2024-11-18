@@ -10,6 +10,15 @@ $(document).ready(function() {
     
     // Set up click handler for night mode button
     $('.night-day-button').on('click', toggleNightMode);
+    
+    // Initialize theme
+    const isModernTheme = localStorage.getItem('modernTheme') === 'true';
+    if (isModernTheme) {
+        applyModernTheme();
+    }
+    
+    // Set up theme toggle handler
+    $('.theme-toggle-button').on('click', toggleTheme);
 });
 
 function applyNightMode(withTransition = false) {
@@ -136,3 +145,25 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', searchWikipedia);
     }
 });
+
+function applyModernTheme() {
+    $('body').addClass('modern-theme');
+    $('.theme-toggle-button').text('Classic Theme');
+}
+
+function removeModernTheme() {
+    $('body').removeClass('modern-theme');
+    $('.theme-toggle-button').text('Modern Theme');
+}
+
+function toggleTheme() {
+    const isModernTheme = $('body').hasClass('modern-theme');
+    
+    if (isModernTheme) {
+        removeModernTheme();
+        localStorage.setItem('modernTheme', 'false');
+    } else {
+        applyModernTheme();
+        localStorage.setItem('modernTheme', 'true');
+    }
+}

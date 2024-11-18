@@ -104,7 +104,8 @@ li {
     margin: 10px 0 0 10px;
 }
 
-.night-day-button {
+.night-day-button,
+.theme-toggle-button {
     width: 75%;
     line-height: 150%;
     border: none;
@@ -117,8 +118,11 @@ li {
 .nightmode-intro-text, .nightmode-body, .nightmode-stage, 
 .nightmode-topic, .nightmode-menu, .nightmode-button-container,
 .nightmode-night-day-button, .nightmode-text-container, 
-.night-day-button:hover {
+.night-day-button:hover,
+.nightmode-theme-toggle-button,
+.theme-toggle-button:hover {
     background-color: black;
+    color: #33ccff;
 }
 
 .nightmode-summary, .nightmode-code {

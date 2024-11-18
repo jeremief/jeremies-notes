@@ -98,6 +98,43 @@ def clean_text(text):
     text = html_cleaner(text)
     return text
 
+def is_spam(text):
+    # Convert to lowercase for checking
+    text = text.lower()
+    
+    # Common spam keywords
+    spam_keywords = {
+        'viagra', 'cialis', 'casino', 'porn', 'xxx', 'lottery', 'winner',
+        'buy now', 'cheap', 'free offer', 'buy cheap', 'online pharmacy',
+        'weight loss', 'make money', 'earn money', 'work from home',
+        'prescription', 'medication', 'crypto', 'bitcoin', 'investment'
+    }
+    
+    # Check for spam characteristics
+    def has_spam_indicators(text):
+        # Too many URLs
+        url_count = len(re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text))
+        if url_count > 2:
+            return True
+            
+        # Too many repeated characters
+        if re.search(r'(.)\1{4,}', text):  # e.g., "aaaaa"
+            return True
+            
+        # Check for spam keywords
+        words = set(text.split())
+        if len(words & spam_keywords) > 0:
+            return True
+            
+        # Check for excessive capitalization
+        caps_ratio = sum(1 for c in text if c.isupper()) / len(text) if text else 0
+        if caps_ratio > 0.5:
+            return True
+            
+        return False
+    
+    return has_spam_indicators(text)
+
 # Routes
 @app.route('/')
 def home():
@@ -116,14 +153,25 @@ def comments():
                                          mycomments=[])
                 
                 # Validate content length
-                if len(content) > 1000:  # Example limit
+                if len(content) < 2:  # Minimum length
+                    return render_template('comments.html', 
+                                         error="Comment too short",
+                                         mycomments=[])
+                if len(content) > 1000:  # Maximum length
                     return render_template('comments.html', 
                                          error="Comment too long",
                                          mycomments=[])
                 
+                # Check for spam
+                if is_spam(content):
+                    logging.warning(f"Spam detected in comment: {content[:100]}")
+                    return render_template('comments.html', 
+                                         error="This comment has been detected as spam",
+                                         mycomments=[])
+                
                 try:
                     new_comment = Comment(parent=comment_wall_key(),
-                                        content=escape(content))  # Escape content
+                                        content=escape(content))
                     new_comment.put()
                     logging.info("Successfully added comment")
                 except Exception as e:

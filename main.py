@@ -21,20 +21,33 @@ CORS(app)
 # Security headers configuration
 csp = {
     'default-src': "'self'",
-    'script-src': ["'self'", "'unsafe-inline'", 
-                   "https://code.jquery.com",
-                   "https://www.googletagmanager.com"],
+    'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        "https://code.jquery.com",
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://ssl.google-analytics.com"
+    ],
     'style-src': ["'self'", "'unsafe-inline'"],
-    'img-src': ["'self'", "data:", "https:"],
-    'connect-src': ["'self'", "https://en.wikipedia.org"]
+    'img-src': ["'self'", "data:", "https:", "http:"],
+    'connect-src': [
+        "'self'",
+        "https://en.wikipedia.org",
+        "https://www.google-analytics.com",
+        "https://ssl.google-analytics.com"
+    ],
+    'frame-src': ["'self'", "https://www.googletagmanager.com"]
 }
 
 # Initialize Talisman
 Talisman(app,
          content_security_policy=csp,
-         force_https=True,
-         strict_transport_security=True,
-         session_cookie_secure=True,
+         content_security_policy_nonce_in=['script-src'],
+         force_https=False,
+         strict_transport_security=False,
+         session_cookie_secure=False,
          session_cookie_http_only=True)
 
 # Use ProxyFix to handle proxy headers

@@ -71,6 +71,12 @@ client = get_client()
 class Comment(ndb.Model):
     content = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(auto_now_add=True)
+    
+    @classmethod
+    def create(cls, content):
+        # Sanitize content before creating comment
+        sanitized_content = sanitize_content(content)
+        return cls(content=sanitized_content)
 
 class SummaryClass(ndb.Model):
     time_request = ndb.DateTimeProperty(auto_now_add=True)
@@ -91,12 +97,12 @@ def html_cleaner(text):
     return re.sub(r'<.*?>', '', text)
 
 def clean_text(text):
-    # Sanitize HTML and potentially dangerous content
-    text = bleach.clean(text, strip=True)
-    text = curly_cleaner(text)
-    text = ref_cleaner(text)
-    text = html_cleaner(text)
-    return text
+    # First clean with bleach
+    text = sanitize_content(text)
+    # Then apply any additional Wikipedia-specific cleaning
+    text = re.sub(r'\[\d+\]', '', text)  # Remove reference numbers
+    text = re.sub(r'\s+', ' ', text)     # Normalize whitespace
+    return text.strip()
 
 def is_spam(text):
     # Convert to lowercase for checking
@@ -134,6 +140,22 @@ def is_spam(text):
         return False
     
     return has_spam_indicators(text)
+
+# Add after imports
+def sanitize_content(content):
+    # Allow only basic HTML tags and attributes
+    allowed_tags = ['p', 'br', 'b', 'i', 'em', 'strong']
+    allowed_attributes = {}
+    # Clean the content and strip any disallowed tags/attributes
+    cleaned_content = bleach.clean(
+        content,
+        tags=allowed_tags,
+        attributes=allowed_attributes,
+        strip=True
+    )
+    # Linkify URLs but disable parsing of protocols to prevent XSS
+    cleaned_content = bleach.linkify(cleaned_content, parse_email=False, callbacks=[])
+    return cleaned_content
 
 # Routes
 @app.route('/')

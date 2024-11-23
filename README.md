@@ -1,10 +1,8 @@
-PROJECT
-========
+# Jeremie's Notes - Interactive Learning Platform
 
-![Alt text](/static/images/Screenshot.png?raw=true "Final result")
+![Project Screenshot](/static/images/Screenshot.png?raw=true "Final result")
 
-1. Description
-----------------
+## 📝 Description
 This website was created as a note-taking and programming exercise for Udacity's Introduction to programming Nanodegree.
 
 The three main features are:
@@ -14,17 +12,47 @@ The three main features are:
 
 The final result is visible [here](https://jeremies-notes.appspot.com/).
 
+## 🚀 Technical Features
 
-3. Issues and known bugs
--------------------------
+### 1. Interactive Learning Experience
+- Multi-stage programming course content covering HTML, CSS, Python, and web development
+- Modern, responsive design with both light and dark themes
+- Mobile-friendly interface
+
+### 2. Dynamic Features
+- **Night Mode**: Toggle between light and dark themes for comfortable reading
+- **Modern Theme**: Switch between classic and contemporary UI designs
+- **Wikipedia Integration**: Live Wikipedia article summaries via API integration
+- **Comment System**: Secure commenting system with spam protection
+
+### 3. Technical Highlights
+- Built with Flask and Google Cloud Platform
+- Secure implementation with CSP headers and XSS protection
+- Responsive design using modern CSS techniques
+- Caching system for Wikipedia API responses
+- jQuery for smooth UI transitions
+
+## 🛠️ Technologies Used
+- **Backend**: Python, Flask
+- **Frontend**: HTML5, CSS3, JavaScript, jQuery
+- **Database**: Google Cloud Datastore
+- **Hosting**: Google App Engine
+- **APIs**: Wikipedia API
+
+## 📱 Mobile Support
+The application is fully responsive and provides an optimized experience for:
+- Smartphones
+- Tablets
+- Desktop devices
+
+## 🔒 Security Features
+- Content Security Policy (CSP) implementation
+- Input sanitization and validation
+- Protection against XSS attacks
+- Secure cookie handling
+
+## ⚠️ Issues and Known Bugs
 None at this point in time
 
-
-4. More information
--------------------
-I improved the API by using regular expressions to clean the strings and plan to improve the mobile experience over time.
-
-
-5. About
----------
+## 👤 Author
 Made by Jeremie Faye

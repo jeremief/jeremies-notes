@@ -45,6 +45,35 @@ The application is fully responsive and provides an optimized experience for:
 - Tablets
 - Desktop devices
 
+## 🔒 Testing
+The application includes end-to-end testing using Playwright for critical features:
+
+### Test Coverage
+- Night Mode functionality
+- UI interactions
+- Theme switching
+
+### Running Tests
+1. Start the test server:
+```python
+python test_server.py
+```
+
+2. Run the tests:
+```bash
+npx playwright test
+```
+
+3. For visual debugging, use headed mode:
+```bash
+npx playwright test --headed
+```
+
+### Test Requirements
+- Node.js and npm installed
+- Python environment with requirements installed
+- Local test server running on port 8080
+
 ## 🔒 Security Features
 - Content Security Policy (CSP) implementation
 - Input sanitization and validation

@@ -1,0 +1,27 @@
+{
+  "name": "jeremies-notes",
+  "version": "1.0.0",
+  "description": "![Project Screenshot](/static/images/Screenshot.png?raw=true \"Final result\")",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremief/jeremies-notes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremief/jeremies-notes/issues"
+  },
+  "homepage": "https://github.com/jeremief/jeremies-notes#readme",
+  "dependencies": {
+    "@playwright/test": "^1.49.0",
+    "playwright": "^1.49.0"
+  }
+}

@@ -1,33 +1,31 @@
 # Python
 __pycache__/
-*.py[cod]
-*.class
-*.so
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
+*.pyc
+*.pyo
+*.pyd
 *.egg-info/
-.installed.cfg
 *.egg
+*.log
+*.coverage
+*.coverage.*
+*.DS_Store
 
 # Virtual environment
+env/
 venv/
+.venv/
 ENV/
 
-# IDE
+# IDE and Editor settings
 .idea/
 .vscode/
 
-# Local development
+# Environment variables
 .env
-.DS_Store
+
+# Test results
+test-results/
+*.pytest_cache/
+
+# Static files
+/static/images/
